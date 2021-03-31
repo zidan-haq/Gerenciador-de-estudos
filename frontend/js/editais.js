@@ -11,9 +11,19 @@
         arrayBox.forEach(box => box.classList.remove('selected'));
         if (!box.classList.contains('selected')) box.classList.add('selected');
 
-        sectionEditais(new Backend(box));
+        populateAndInitialize(box);
     }
 })();
+
+function populateAndInitialize(box) {
+    document.querySelector('main .disabled').classList.remove('disabled');
+
+    sectionEdital();
+    sectionDisciplinas();
+    sectionObservacoes();
+    sectionCartaoApresentacao();
+    populateFields(new Backend(box));
+}
 
 class Backend {
     constructor(box) {
@@ -25,20 +35,22 @@ class Backend {
     }
 }
 
-function sectionEditais(datas) {
-    document.querySelector('main .disabled').classList.remove('disabled');
+function sectionEdital() {
 
     const formEditalCompleto = document.getElementById('edital-completo');
     const linkEditalCompleto = document.getElementById('link-edital-completo');
     const btnLinkEditalCompleto = document.getElementById('btn-link-edital-completo');
-    const subjectForms = () => document.querySelectorAll('.subject-form');
-    const subjectContentForms = () => document.querySelectorAll('.subject-content-form');
-    const addLine = document.getElementById('add-line');
 
     formEditalCompleto.addEventListener('submit', e => {
         e.preventDefault();
         setReadOnly(linkEditalCompleto, btnLinkEditalCompleto);
     });
+}
+
+function sectionDisciplinas() {
+    const subjectForms = () => document.querySelectorAll('.subject-form');
+    const subjectContentForms = () => document.querySelectorAll('.subject-content-form');
+    const addLine = document.getElementById('add-line');
 
     subjectForms().forEach(form => treatSubjectForm(form));
     subjectContentForms().forEach(form => treatSubjectContentForm(form));
@@ -131,21 +143,45 @@ function sectionEditais(datas) {
             }, 3000);
         }
     })
+}
 
-    function setReadOnly(fieldReadOnly, button) {
-        if (fieldReadOnly.getAttribute('readonly')) {
-            fieldReadOnly.removeAttribute('readonly');
-        } else {
-            fieldReadOnly.setAttribute('readonly', 'true');
-            /* Nessa parte os elementos são salvos no backend >>>--------------> Falta implementar <--------------<<< */
-        }
-        button.value = button.value === '🗒' ? '✔' : '🗒';
+function sectionObservacoes() {
+    const commentsForm = document.querySelector('#comments form');
+    const textarea = document.getElementById('comments-content');
+    const buttonEdit = document.getElementById('edit-comments');
+
+    commentsForm.addEventListener('submit', e => {
+        e.preventDefault();
+        setReadOnly(textarea, buttonEdit);
+    })
+}
+
+function sectionCartaoApresentacao() {
+    const cardForm = document.querySelector('#card-config form');
+    const cardName = document.getElementById('card-name');
+    const urlCardImage = document.getElementById('card-image');
+    const buttonEdit = document.getElementById('edit-card');
+
+    cardForm.addEventListener('submit', e => {
+        e.preventDefault();
+        setReadOnly(cardName, new Object());
+        setReadOnly(urlCardImage, buttonEdit);
+    });
+}
+
+/* Nessa parte os elementos são povoados pelo backend >>>--------------> Falta implementar <--------------<<< */
+function populateFields(dados) {
+    
+};
+
+function setReadOnly(fieldReadOnly, button) {
+    if (fieldReadOnly.getAttribute('readonly')) {
+        fieldReadOnly.removeAttribute('readonly');
+    } else {
+        fieldReadOnly.setAttribute('readonly', 'true');
+        /* Nessa parte os elementos são salvos no backend >>>--------------> Falta implementar <--------------<<< */
     }
-
-    /* Nessa parte os elementos são povoados pelo backend >>>--------------> Falta implementar <--------------<<< */
-    function populateFields(dados) {
-        linkEditalCompleto.value = 'dados.linkEditalCompleto';
-    };
+    button.value = button.value === '🗒' ? '✔' : '🗒';
 }
 
 function createLine() {

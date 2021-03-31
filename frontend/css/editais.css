@@ -211,14 +211,14 @@ main section textarea:read-only {
 
 /* card config [section editais] */
 
-#card-config {
+#card-config form {
     display: grid;
     row-gap: 10px;
     border: 2px solid #07393c;
     padding: 10px;
 }
 
-#card-config div {
+#card-config form div {
     display: flex;
     justify-content: space-between;
 }
