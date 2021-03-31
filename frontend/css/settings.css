@@ -1,0 +1,130 @@
+/* root colors */
+:root{
+    --dark-green: #07393c;
+    --dark: #0a090c;
+    --transparent-dark: #0a090ccc;
+    --gray: #dadff7;
+    --dark-gold: #9A6D38;
+}
+
+/* general */
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Tahoma, sans-serif;
+    background-image: linear-gradient(to right, #27333a, #5a7684);
+}
+
+/* nav */
+
+nav {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav a p {
+    text-align: center;
+    padding-top: 20px;
+    margin: 0px;
+    font-size: 70px;
+    font-weight: bolder;
+    color: var(--gray);
+    line-height: 0px;
+}
+
+nav #settings-image {
+    width: 70px;
+}
+
+/* layout page-container */
+
+#page-container {
+    position: relative;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1em;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 7px var(--dark);
+    background-color: var(--transparent-dark);
+    color: var(--gray);
+    font-size: calc(10px + 1vw);
+}
+
+/* header and main elements */
+
+header {
+    text-align: center;
+}
+
+main input[type=text], main input[type=date] {
+    background-color: transparent;
+    color: var(--gray);
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid var(--gray);
+}
+
+main input[type=text]:focus, main input[type=date]:focus {
+    outline: none;
+}
+
+main input[type=text] {
+    width: 90%;
+}
+
+main .container-prova-data {
+    margin: 10px;
+}
+
+main #add-prova-data {
+    border-radius: 50%;
+    border: none;
+    background-color: var(--dark-green);
+    color: var(--gray);
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+main .error {
+    color: red;
+    font-size: 13px;
+}
+
+/* salvar */
+
+main #container-btn-save {
+    text-align: center;
+    margin: 20px;
+} 
+
+main #btn-save {
+    height: 2em;
+    border: none;
+    border-radius: 10%;
+    background-color: var(--dark-green);
+    color: var(--gray);
+    font-weight: bold;
+    font-size: calc(12px + 20%);
+}
+
+/* responsive */
+
+@media screen and (max-width: 800px) {
+    #page-container {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    main input[type=date] {
+        width: 90%;
+    }
+}

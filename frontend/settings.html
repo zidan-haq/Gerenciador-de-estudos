@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/settings.css">
+
+    <title>Gerencie seus estudos | Configurações</title>
+    <link rel="shortcut icon" href="images/logo.svg" type="image/svg">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html"><img id="settings-image" src="images/settings.svg" alt="Logo">
+            <p>&larr;</p>
+        </a>
+    </nav>
+    <div id='page-container'>
+        <header>
+            <h1>Configurações</h1>
+        </header>
+        <main>
+            <section>
+                <h2>Objetivos:</h2>
+                <h3>Cabeçalho:</h3>
+                <input type="text" name="" placeholder="Dica: use entre 1 e 3 palavras" id="cabecalho">
+                <h3>Prova e data:</h3>
+                <div class="container-prova-data">
+                    <input type="text" placeholder="Concurso tribunal..." class="prova"><input type="date" class="data">
+                </div>
+                <button id="add-prova-data">+</button>
+                <p class='error'></p>
+            </section>
+            <section id='container-btn-save'>
+                <button id='btn-save'>Salvar</button>
+            </section>
+        </main>
+    </div>
+</body>
+<script src="js/settings.js"></script>
+</html>

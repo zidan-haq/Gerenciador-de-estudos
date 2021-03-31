@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Gerencie seus estudos</title>
+    <link rel="shortcut icon" href="images/logo.svg" type="image/svg">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html"><img class="logo" src="images/logo.svg" alt="Logo"></a>
+        <label for="btn-menu" id="label-btn-menu">&equiv;</label>
+        <input type="checkbox" id="btn-menu">
+        <ul id="menu-items">
+            <li><a href="#controle-semanal">Controle Semanal</a></li>
+            <li><a href="#materiais">Materiais</a></li>
+            <li><a href="editais.html">Editais</a></li>
+            <li><a href="#">Desempenho</a></li>
+            <li><a href="settings.html"><img src="images/settings.svg" alt="Configurações"></a></li>
+        </ul>
+    </nav>
+    <div id="page-container">
+        <header>
+            <h1>Atenção às datas!</h1>
+            <p>
+                A prova da PCDF-Escrivão acontecerá no dia
+                10/04/2021
+                <br>
+                <strong>Faltam 26 dias para a prova.</strong>
+            </p>
+            <p>
+                A prova da PCDF-Agente acontecerá no dia
+                11/04/2021
+                <br>
+                <strong>Faltam 27 dias para a prova</strong>
+            </p>
+        </header>
+        <main>
+            <section id="pensamento-do-dia">
+                <h1>Pensamento do dia</h1>
+                <div class="flex-elements">
+                    <img id="motivational-phrase" src="#" alt="Frase motivacional">
+                    <img class="next" src="./images/reload.svg" alt="Próxima">
+                </div>
+            </section>
+            <section id="controle-semanal">
+                <h1>Controle Semanal</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Qui</th>
+                            <th>Sex</th>
+                            <th>Sáb</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>manhã</th>
+                            <td><input type="text" name="" class="cells manha-dom" readonly='true'></td>
+                            <td><input type="text" name="" class="cells manha-seg" readonly='true'></td>
+                            <td><input type="text" name="" class="cells manha-ter" readonly='true'></td>
+                            <td><input type="text" name="" class="cells manha-qua" readonly='true'></td>
+                            <td><input type="text" name="" class="cells manha-qui" readonly='true'></td>
+                            <td><input type="text" name="" class="cells manha-sex" readonly='true'></td>
+                            <td><input type="text" name="" class="cells manha-sab" readonly='true'></td>
+                        </tr>
+                        <tr>
+                            <th>1ª tarde</th>
+                            <td><input type="text" name="" class="cells tarde1-dom" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde1-seg" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde1-ter" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde1-qua" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde1-qui" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde1-sex" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde1-sab" readonly='true'></td>
+                        </tr>
+                        <tr>
+                            <th>2ª tarde</th>
+                            <td><input type="text" name="" class="cells tarde2-dom" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde2-seg" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde2-ter" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde2-qua" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde2-qui" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde2-sex" readonly='true'></td>
+                            <td><input type="text" name="" class="cells tarde2-sab" readonly='true'></td>
+                        </tr>
+                        <tr>
+                            <th>noite</th>
+                            <td><input type="text" name="" class="cells noite-dom" readonly='true'></td>
+                            <td><input type="text" name="" class="cells noite-seg" readonly='true'></td>
+                            <td><input type="text" name="" class="cells noite-ter" readonly='true'></td>
+                            <td><input type="text" name="" class="cells noite-qua" readonly='true'></td>
+                            <td><input type="text" name="" class="cells noite-qui" readonly='true'></td>
+                            <td><input type="text" name="" class="cells noite-sex" readonly='true'></td>
+                            <td><input type="text" name="" class="cells noite-sab" readonly='true'></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="buttons">
+                    <button class="btn-edit">Editar</button>
+                </div>
+            </section>
+            <section id="materiais">
+                <h1>Materiais</h1>
+                <ul>
+                    <li>
+                        <h2>Links</h2>
+                    </li>
+                    <ul class="links-list">
+                        <li><a href="https://www.estrategiaconcursos.com.br/blog/resumos-policia-federal/"
+                                target="_blank" rel="external">Resumão em vídeo PF</a>
+                            <button class="remove">&#128465;</button>
+                        </li>
+                    </ul>
+
+                    <form action="">
+                        <input class="url" type="url" placeholder="URL" required>
+                        <input class="alias" type='text' placeholder="Apelido">
+                        <input class='btn-add' type="submit" value="&#8679;">
+                    </form>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+/* general */
+
+body{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Tahoma, sans-serif;
+    background-color: #07393c;
+}
+
+nav, header, section {
+    width: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    z-index: 1;
+}
+
+#page-container {
+    padding: 20px;
+}
+
+/* menu */
+
+#label-btn-menu {
+    text-align: right;
+    color: #dadff7;
+    display: none;
+    cursor: pointer;
+}
+
+#btn-menu {
+    display: none;
+}
+
+nav {
+    height: 50px;
+    background-color: #0a090c;
+    padding: 1em 2em;
+    border-radius: 0 0 20px 20px;
+}
+
+#menu-items {
+    text-align: right;
+    list-style: none;
+    margin: 0;
+}
+
+#menu-items li{
+    display: inline-block;
+}
+
+#menu-items li a {
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    color: #dadff7;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#menu-items li a:hover {
+    transition: 1s;
+    color: #e1ad62;
+}
+
+#menu-items li a img {
+    width: 16px;
+}
+
+nav .logo {
+    width: 50px;
+    position: absolute;
+    display: block;
+    top: 15px;
+}
+
+/* header */
+
+header {
+    display: inline-block;
+    padding: 2em 2em;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #0a090c;
+    background-color: #9A6D38;
+    color: #0a090c;
+
+    text-align: center;
+    background-image: url(../images/logo-pcdf.png), url(../images/logo-pf.png);
+    background-repeat: no-repeat;
+    background-position: 5%, 95%;
+}
+
+header p {
+    font-size: 20px;
+}
+
+header p strong {
+    animation: blinking 2s 3;
+}
+
+@keyframes blinking {
+    0% {color: #330000; text-shadow: 1px 1px 10px red}
+    50% {color: #990000; text-shadow: 1px 1px 1px red}
+    100% {color: #330000; text-shadow: 1px 1px 10px red}
+}
+
+/* general part of main and sections */
+
+main section {
+    margin: 20px 0px 0px 0px;
+    padding: 2em 2em;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #0a090c;
+    background-color: #9A6D38;
+    color: #0a090c;
+}
+
+main section h1 {
+    text-align: center;
+}
+
+main section ul {
+    list-style: none;
+}
+
+main section a {
+    font-weight: bold;
+    color: #07393c;
+    transition: .5s;
+}
+
+/* pensamento do dia */
+#pensamento-do-dia .flex-elements{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#motivational-phrase {
+    max-width: 100%;
+}
+
+#pensamento-do-dia .next {
+    max-width: 10%;
+}
+
+/* controle semanal */
+
+#controle-semanal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#controle-semanal table, td {
+    border: 2px solid #0a090c;
+    border-collapse: collapse;
+    padding: 4px;
+}
+
+#controle-semanal table th {
+    color: #dadff7;
+    background-color: #07393c;
+}
+
+#controle-semanal table tr:nth-child(odd) {
+    background: #7aa5a7;
+}
+
+#controle-semanal table tr:nth-child(even) {
+    background: #b1d3d5;
+}
+
+#controle-semanal .cells, #controle-semanal .cells:focus {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+}
+
+#buttons .disable {
+    display: none;
+}
+
+#buttons button{
+    height: 2em;
+    margin: 1vw 10vw;
+    border: none;
+    box-shadow: 1px 1px 3px #0a090c;
+    border-radius: 10%;
+    background-color: #07393c;
+    color: #dadff7;
+    font-weight: bold;
+}
+
+/* materiais */
+
+#materiais .links-list .remove {
+    display: none;
+    cursor: pointer;
+    position: relative;
+    left: 3em;
+    width: 35px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    background-color: #5a0404;
+    color: #dadff7;
+}
+
+#materiais .links-list li:hover button {
+    display: inline;
+}
+
+#materiais .links-list {
+    padding-bottom: 20px;
+}
+
+#materiais form {
+    text-align: center;
+}
+
+#materiais form input, #materiais form input:focus {
+    text-align: center;
+    background-color: #9A6D38;
+    border: 1px solid #0a090c;
+    color: #2b2633;
+    font-weight: bold;
+    outline: none;
+    box-shadow: none;
+}
+
+::-webkit-input-placeholder {
+    color: #2b2830;
+ }
+
+#materiais .btn-add {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    background-color: #0a090c;
+    color: #dadff7;
+}
+
+#materiais .btn-add:focus {
+    background-color: #0a090c;
+    color: #dadff7;
+    padding: 0;
+}
+
+
+/* responsive */
+
+@media screen and (max-width: 1100px) {
+    
+    /* header images */
+    
+    header {
+      background-image: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    /* menu */
+
+    nav {
+        z-index: 2;
+        text-align: right;
+    }
+
+    #label-btn-menu {
+        display: inline-block;
+        font-size: 50px;
+    }
+
+    #menu-items {
+        position: absolute;
+        right: 0px;
+        display: none;
+    }
+    
+    #menu-items li{
+        width: 100%;
+        background-color: #0a090cdd;
+        display: block;
+        text-align: center;
+        border-bottom: 1px solid #9A6D38;
+    }
+
+    #btn-menu:checked ~ #menu-items {
+        display: block;
+    }
+
+    /* controle semanal */
+
+    #controle-semanal table {
+        font-size: 1.8vw;
+    }
+    
+    #controle-semanal table, td {
+        border: 1px solid #0a090c;
+        padding: 1px;
+    }
+
+    #buttons button{
+        font-size: 2vw;
+    }
+}

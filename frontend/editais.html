@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/editais.css">
+
+    <title>Gerencie seus estudos</title>
+    <link rel="shortcut icon" href="images/logo.svg" type="image/svg">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html"><img class="logo" src="images/logo.svg" alt="Logo"></a>
+        <label for="btn-menu" id="label-btn-menu">&equiv;</label>
+        <input type="checkbox" id="btn-menu">
+        <ul id="menu-items">
+            <li><a href="index.html">Página principal</a></li>
+            <li><a href="#">Desempenho</a></li>
+            <li><a href="settings.html"><img src="images/settings.svg" alt="Configurações"></a></li>
+        </ul>
+    </nav>
+    <div id="page-container">
+        <header>
+            <h1>Editais</h1>
+            <div id="main-container">
+                <div class="box">
+                    <div>
+                        <img class='box-img' alt="&#127964;">
+                    </div>
+                    <div>
+                        Polícia Civil<br>Escrivão
+                    </div>
+                </div>
+                <div class="box">
+                    <div>
+                        <img class='box-img' src="./images/logo-pcdf.png" alt="&#127964;">
+                    </div>
+                    <div>
+                        Polícia Civil<br>Agente
+                    </div>
+                </div>
+                <div class="box">
+                    <div>
+                        <img class='box-img' src="./images/logo-pf.png" alt="&#127964;">
+                    </div>
+                    <div>
+                        Polícia Federal<br>Agente
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="disabled">
+                <div>
+                    <h2>Edital</h2>
+                    <form id='edital-completo' action="">
+                        <label for="link-edital-completo">Link para acessar o edital completo</label>
+                        <div>
+                            <input id='link-edital-completo' type="url" readonly='true'>
+                            <input id="btn-link-edital-completo" type="submit" value='&#128466;'>
+                        </div>
+                    </form>
+                </div>
+                <div id="subjects">
+                    <h2>Disciplinas</h2>
+                    <ul>
+                        <li>
+                            <form class="subject-form" action="">
+                                <input class="subject-name" type="text" placeholder="Nome da matéria" readonly='true'>
+                                <input class="edit-subject-name" type="submit" value='&#128466;'>
+                                <input class="delete-subject-name" type="submit" value='&#128465;'>
+                                <input class="show-more" type="submit" value='&#9660;'>
+                            </form>
+                            <ul>
+                                <li class="more disabled">
+                                    <form class="subject-content-form">
+                                        <textarea class="subject-content" cols="30" rows="10"
+                                            readonly='true'></textarea>
+                                        <input class="save-more" type="submit" value='&#128466;'>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <button id="add-line">&#10548;</button>
+                </div>
+                <div id="comments">
+                    <h2>Observações</h2>
+                    <form action="">
+                        <textarea id="comments" cols="30" rows="10" readonly='true'></textarea>
+                        <input id="save-comments" type="submit" value="&#128466;">
+                    </form>
+                </div>
+                <div>
+                    <h2>Cartão de apresentação</h2>
+                    <form id="card-config" action="">
+                        <div>
+                            <label for="card-name">Nome no cartão de apresentação</label>
+                            <input type="submit" value="&#128466;">
+                        </div>
+                        <input type="text" id="card-name" readonly='true'>
+                        <label for="card-image">URL da imagem</label>
+                        <input type="url" id="card-image" readonly='true'>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./js/editais.js"></script>
+</body>
+
+</html>
