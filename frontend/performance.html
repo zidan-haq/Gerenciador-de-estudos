@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/performance.css">
+
+    <title>Gerencie seus estudos</title>
+    <link rel="shortcut icon" href="images/logo.svg" type="image/svg">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html"><img class="logo" src="images/logo.svg" alt="Logo"></a>
+        <label for="btn-menu" id="label-btn-menu">&equiv;</label>
+        <input type="checkbox" id="btn-menu">
+        <ul id="menu-items">
+            <li><a href="index.html">Página principal</a></li>
+            <li><a href="editais.html">Editais</a></li>
+            <li><a href="settings.html"><img src="images/settings.svg" alt="Configurações"></a></li>
+        </ul>
+    </nav>
+    <div id="page-container">
+
+        <div id="modal-window">
+            <form id="edit-card">
+                <div id="modal-buttons">
+                    <a href="#proofs"><abbr title="voltar">↩</abbr></a>
+                    <abbr title="Editar Prova"><input class="edit" type="submit" value="🗒"></abbr>
+                    <abbr title="Deletar Prova"><input class="delete" type="submit" value="🗑"></abbr>
+                </div>
+                <div id="modal-flex">
+                    <table class="edit-general">
+                        <tr>
+                            <td><label class="label-name" for="name">Nome</label></td>
+                            <td><input class="name" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-date" for="date">Data</label></td>
+                            <td><input class="date" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-type" for="type">Tipo</label></td>
+                            <td><input class="type" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-performance" for="performance">Desempenho</label></td>
+                            <td><input class="performance" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-percentage" for="percentage">Porcentagem</label></td>
+                            <td><input class="percentage" type="number" step='0.01' min="-100" max="100"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-quantity" for="quantity">Quantidade</label></td>
+                            <td><input class="quantity" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-positive" for="positive">Positivadas</label></td>
+                            <td><input class="positive" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-correct" for="correct">Corretas</label></td>
+                            <td><input class="correct" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-blank" for="blank">Em branco</label></td>
+                            <td><input class="blank" type=""></td>
+                        </tr>
+                        <tr>
+                            <td><label class="label-wrong" for="wrong">Erradas</label></td>
+                            <td><input class="wrong" type=""></td>
+                        </tr>
+                    </table>
+                    <table id="edit-subjects">
+                        <tr>
+                            <th>Matéria</th>
+                            <th>Porcentagem</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td><label>Português</label></td>
+                            <td><input class="subject" type="text" readonly='true'></td>
+                            <td><input type="number" name="" id="" readonly="true" value="1234"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Matemática</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Direito Administrativo</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Direito Constitucional</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Contabilidade</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Estatística</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Informática</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Direito Penal</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Direito Processual Penal</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Direito Administrativo</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Direito Constitucional</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Legislação</label></td>
+                            <td><input class="subject" type="text"></td>
+                            <td><input type="number" name="" id=""></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        <header>
+            <h1>Desempenho</h1>
+            <h2>Histórico:</h2>
+            <div>
+                <p>Último simulado cadastrado:</p>
+                <p>Data do último simulado:</p>
+                <p>Quantidade de simulados cadastrados:</p>
+                <p>Nota média geral:</p>
+            </div>
+            <span>
+                <h2>Ranking de matérias:</h2>
+                <button id=show-table>▼</button>
+            </span>
+            <table>
+                <tr>
+                    <th>Nome da matéria</th>
+                    <th>Quantidade de questões</th>
+                    <th>Nota média</th>
+                </tr>
+                <tr>
+                    <td>contabilidade geral e pública</td>
+                    <td>70</td>
+                    <td>75%</td>
+                </tr>
+                <tr>
+                    <td>Matemática</td>
+                    <td>50</td>
+                    <td>90%</td>
+                </tr>
+            </table>
+        </header>
+        <main>
+            <section>
+                <form id='search-form' action="">
+                    <div>
+                        <label for="orderBy">Ordenar por:</label>
+                        <select id="orderBy">
+                            <option value="date">Data</option>
+                            <option value="contest">Concurso</option>
+                            <option value="type">Tipo de prova</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="display">Apresentação:</label>
+                        <select id="display">
+                            <option value="block">Blocos</option>
+                            <option value="list">Lista</option>
+                        </select>
+                    </div>
+                    <button>Pesquisar 🔎</button>
+                </form>
+            </section>
+            <section id=proofs>
+                <div id="buttons-proof">
+                    <button id="insert-proof">Inserir prova</button>
+                    <button id='delete-proof'>Excluir todos os simulados cadastrados</button>
+                </div>
+                <div id="cards">
+                    <div class="card">
+                        <p>Direitos Humanos: -100,00% | -1 de 1 </p>
+                        <p>Legislação: 21/01/2021</p>
+                        <p>Estatística: certo e errado</p>
+                        <p>Penal</p>
+                        <p>Contabilidade: 61,67%</p>
+                        <p>Português: </p>
+                        <p>Constitucional: 74</p>
+                        <p>Inglês: 94</p>
+                        <p>Matemática: 6</p>
+                        <p>Informática: 100,00% | 15 de 15</p>
+                        <p>DF: 20</p>
+                        <p>Processual Penal: 20</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/performance.js">
+
+    </script>
+</body>
+
+</html>

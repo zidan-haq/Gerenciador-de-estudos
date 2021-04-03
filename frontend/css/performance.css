@@ -1,0 +1,351 @@
+/* general */
+
+
+a, a:link, a:visited, abbr {
+    text-decoration: none;
+    color: #dadff7;
+}
+
+body{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Tahoma, sans-serif;
+    background-color: #07393c;
+    font-size: calc(5px + 1vw);
+}
+
+nav, header, section {
+    width: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    z-index: 1;
+}
+
+#page-container {
+    padding: 20px;
+}
+
+/* menu */
+
+#label-btn-menu {
+    text-align: right;
+    color: #dadff7;
+    display: none;
+    cursor: pointer;
+}
+
+#btn-menu {
+    display: none;
+}
+
+nav {
+    height: 50px;
+    background-color: #0a090c;
+    padding: 1em 2em;
+    border-radius: 0 0 20px 20px;
+    font-size: 16px;
+}
+
+#menu-items {
+    text-align: right;
+    list-style: none;
+    margin: 0;
+}
+
+#menu-items li{
+    display: inline-block;
+}
+
+#menu-items li a {
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    color: #dadff7;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#menu-items li a:hover {
+    transition: 1s;
+    color: #e1ad62;
+}
+
+#menu-items li a img {
+    width: 16px;
+}
+
+nav .logo {
+    width: 50px;
+    position: absolute;
+    display: block;
+    top: 15px;
+}
+
+/* header */
+
+header {
+    padding: 2em 2em;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #0a090c;
+    background-color: #9A6D38;
+    color: #0a090c;
+}
+
+header h1 {
+    text-align: center;
+}
+
+header div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+header span {
+    display: flex;
+}
+
+header table {
+    width: 100%;
+    text-align: center;
+}
+
+header table, table td {
+    border: 1px solid #0a090c;
+    border-collapse: collapse;
+    padding: 4px;
+}
+
+header #show-table {
+    background-color: transparent;
+    border: none;
+    font-size: calc(10px + 1vw);
+    color: #0a090c;
+}
+
+header table th {
+    color: #dadff7;
+    background-color: #07393c;
+}
+
+header table tr:nth-child(odd) {
+    background: #7aa5a7;
+}
+
+header table tr:nth-child(even) {
+    background: #b1d3d5;
+}
+
+
+/* general part of main and sections */
+
+main section {
+    margin: 20px 0px 0px 0px;
+    padding: 2em 2em;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #0a090c;
+    background-color: #9A6D38;
+    color: #0a090c;
+}
+
+main section h1 {
+    text-align: center;
+}
+
+/* search form */
+
+#search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 20px;
+}
+
+#search-form button {
+    height: 2em;
+    border: none;
+    box-shadow: 1px 1px 3px #0a090c;
+    border-radius: 20px;
+    background-color: #07393c;
+    color: #dadff7;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#search-form select {
+    height: 2em;
+    width: 10em;
+    border: none;
+    box-shadow: 1px 1px 3px #0a090c;
+    border-radius: 5px;
+    background-color: #07393c;
+    color: #dadff7;
+    font-weight: bold;
+    font-size: 16px; 
+}
+
+#search-form select:focus {
+    outline: none;
+}
+
+/* proofs */
+
+#buttons-proof {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#insert-proof {
+    height: 2em;
+    border: none;
+    box-shadow: 1px 1px 3px #0a090c;
+    border-radius: 5px;
+    background-color: #07393c;
+    color: #dadff7;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#delete-proof {
+    height: 2em;
+    border: none;
+    box-shadow: 1px 1px 3px #0a090c;
+    border-radius: 5px;
+    background-color: #6e0d0d;
+    color: #dadff7;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* proofs cards */
+
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: space-between;
+    justify-items: center;
+    row-gap: 20px;
+}
+
+#cards .card {
+    padding: 10px 20px;
+    border: 3px inset #dadff7;
+    box-shadow: 2px 2px 5px black;
+    line-height: 0;
+    color: #dadff7;
+    background: linear-gradient(45deg, #07393c 2px, transparent 2px);
+    background-size: 2px 2px;
+    background-color: #0a090c;
+}
+
+#cards .card:hover {
+    transform: translate(0, -10px);
+    box-shadow: 2px 2px 10px black;
+}
+
+/* modal window */
+
+#modal-window {
+    text-align: left;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #dadff7;
+    display: none;
+}
+
+#modal-buttons {
+    display: flex;
+    column-gap: 10%;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#modal-buttons input[type=submit], #modal-buttons a     abbr {
+    background-color: transparent;
+    border: none;
+    color: #dadff7;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#modal-window:target {
+    display: flex;
+}
+
+#modal-window #modal-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 10em;
+}
+
+#modal-window table td, #modal-window table th {
+    border: none;
+    text-align: right;
+}
+
+#modal-window table input {
+    appearance: textfield;
+    background-color: transparent;
+    border: transparent;
+    height: 1em;
+    width: 7em;
+    color: #dadff7;
+}
+
+#modal-window table input:read-write {
+    background-color: #dadff7;
+    color: #0a090c;
+}
+
+#modal-window table input, #modal-window table label {
+    font-size: calc(3px + 1vw);
+}
+
+#modal-window table input:focus {
+    outline: none;
+}
+
+/* responsive */
+
+@media screen and (max-width: 550px) {
+
+    /* menu */
+
+    nav {
+        z-index: 2;
+        text-align: right;
+    }
+
+    #label-btn-menu {
+        display: inline-block;
+        font-size: 50px;
+    }
+
+    #menu-items {
+        position: absolute;
+        right: 0px;
+        display: none;
+    }
+    
+    #menu-items li{
+        width: 100%;
+        background-color: #0a090cdd;
+        display: block;
+        text-align: center;
+        border-bottom: 1px solid #9A6D38;
+    }
+
+    #btn-menu:checked ~ #menu-items {
+        display: block;
+    }
+}
