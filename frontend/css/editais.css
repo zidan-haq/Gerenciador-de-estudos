@@ -103,11 +103,13 @@ header #main-container .box {
     align-items: center;
     border-radius: 20px;
     border: 2px solid #dadff7;
-    background-color: #0a090c;
     box-shadow: 2px 2px 5px #0a090c;
     color: #dadff7;
     font-size: 30px;
-
+    background: linear-gradient(45deg, #1b1b1b 10px, transparent 10px), 
+        linear-gradient(225deg, #1b1b1b 10px, transparent 10px);
+    background-color: #0a090c;
+    background-size: 20px 20px;
 }
 
 header #main-container .box .box-img {
