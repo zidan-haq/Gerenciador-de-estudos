@@ -27,6 +27,10 @@ nav, header, section {
     padding: 20px;
 }
 
+.disabled {
+    display: none;
+}
+
 /* menu */
 
 #label-btn-menu {
@@ -100,7 +104,7 @@ header h1 {
 header div {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    column-gap: 2rem;
 }
 
 header span {
@@ -154,28 +158,17 @@ main section h1 {
     text-align: center;
 }
 
-/* search form */
+/* proofs */
 
-#search-form {
+#buttons-proof {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    row-gap: 20px;
+    justify-content: space-between;
+    gap: 1rem 2rem;
 }
 
-#search-form button {
-    height: 2em;
-    border: none;
-    box-shadow: 1px 1px 3px #0a090c;
-    border-radius: 20px;
-    background-color: #07393c;
-    color: #dadff7;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-#search-form select {
-    height: 2em;
+#order-by {
+    height: calc(14px + 1vw);
     width: 10em;
     border: none;
     box-shadow: 1px 1px 3px #0a090c;
@@ -183,41 +176,33 @@ main section h1 {
     background-color: #07393c;
     color: #dadff7;
     font-weight: bold;
-    font-size: 16px; 
+    font-size: calc(3px + 1vw);
 }
 
-#search-form select:focus {
+#order-by:focus {
     outline: none;
 }
 
-/* proofs */
-
-#buttons-proof {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
 #insert-proof {
-    height: 2em;
+    height: calc(16px + 1vw);
     border: none;
     box-shadow: 1px 1px 3px #0a090c;
     border-radius: 5px;
     background-color: #07393c;
     color: #dadff7;
     font-weight: bold;
-    font-size: 16px;
+    font-size: calc(3px + 1vw);
 }
 
 #delete-proof {
-    height: 2em;
+    height: calc(16px + 1vw);
     border: none;
     box-shadow: 1px 1px 3px #0a090c;
     border-radius: 5px;
     background-color: #6e0d0d;
     color: #dadff7;
     font-weight: bold;
-    font-size: 16px;
+    font-size: calc(3px + 1vw);
 }
 
 /* proofs cards */
@@ -226,7 +211,7 @@ main section h1 {
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
-    justify-content: space-between;
+    justify-content: space-evenly;
     justify-items: center;
     row-gap: 20px;
 }
@@ -243,8 +228,9 @@ main section h1 {
 }
 
 #cards .card:hover {
-    transform: translate(0, -10px);
-    box-shadow: 2px 2px 10px black;
+    transition: .5s;
+    transform: translate(0, -5px);
+    box-shadow: 1px 1px 8px black;
 }
 
 /* modal window */
@@ -262,14 +248,18 @@ main section h1 {
     display: none;
 }
 
+#modal-window:target {
+    display: block;
+}
+
 #modal-buttons {
     display: flex;
     column-gap: 10%;
     justify-content: center;
-    margin-bottom: 20px;
+    margin: 20px 0px;
 }
 
-#modal-buttons input[type=submit], #modal-buttons a     abbr {
+#modal-buttons input[type=submit], #modal-buttons a abbr {
     background-color: transparent;
     border: none;
     color: #dadff7;
@@ -277,20 +267,21 @@ main section h1 {
     font-size: 30px;
 }
 
-#modal-window:target {
-    display: flex;
-}
-
 #modal-window #modal-flex {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     column-gap: 10em;
+    padding: 0px 3em;
 }
 
-#modal-window table td, #modal-window table th {
+#modal-window table td {
     border: none;
     text-align: right;
+}
+
+#modal-window table th, #modal-window table input {
+    text-align: center;
 }
 
 #modal-window table input {

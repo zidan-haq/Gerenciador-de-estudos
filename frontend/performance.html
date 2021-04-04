@@ -149,75 +149,38 @@
             <h1>Desempenho</h1>
             <h2>Histórico:</h2>
             <div>
-                <p>Último simulado cadastrado:</p>
-                <p>Data do último simulado:</p>
-                <p>Quantidade de simulados cadastrados:</p>
-                <p>Nota média geral:</p>
+                <p id="last-registered">Último simulado cadastrado:</p>
+                <p id="last-registered-date">Data do último simulado:</p>
+                <p id="quantity-registered">Quantidade de simulados cadastrados:</p>
+                <p id="average-grade">Nota média geral:</p>
             </div>
             <span>
                 <h2>Ranking de matérias:</h2>
-                <button id=show-table>▼</button>
+                <button id="show-table">▼</button>
             </span>
-            <table>
+            <table id="ranking-table" class="disabled">
                 <tr>
                     <th>Nome da matéria</th>
                     <th>Quantidade de questões</th>
                     <th>Nota média</th>
                 </tr>
-                <tr>
-                    <td>contabilidade geral e pública</td>
-                    <td>70</td>
-                    <td>75%</td>
-                </tr>
-                <tr>
-                    <td>Matemática</td>
-                    <td>50</td>
-                    <td>90%</td>
-                </tr>
             </table>
         </header>
         <main>
-            <section>
-                <form id='search-form' action="">
+            <section id=proofs>
+                <div id="buttons-proof">
                     <div>
-                        <label for="orderBy">Ordenar por:</label>
-                        <select id="orderBy">
+                        <label for="order-by">Ordenar por:</label>
+                        <select id="order-by">
                             <option value="date">Data</option>
-                            <option value="contest">Concurso</option>
+                            <option value="name">Nome</option>
                             <option value="type">Tipo de prova</option>
                         </select>
                     </div>
-                    <div>
-                        <label for="display">Apresentação:</label>
-                        <select id="display">
-                            <option value="block">Blocos</option>
-                            <option value="list">Lista</option>
-                        </select>
-                    </div>
-                    <button>Pesquisar 🔎</button>
-                </form>
-            </section>
-            <section id=proofs>
-                <div id="buttons-proof">
                     <button id="insert-proof">Inserir prova</button>
                     <button id='delete-proof'>Excluir todos os simulados cadastrados</button>
                 </div>
-                <div id="cards">
-                    <div class="card">
-                        <p>Direitos Humanos: -100,00% | -1 de 1 </p>
-                        <p>Legislação: 21/01/2021</p>
-                        <p>Estatística: certo e errado</p>
-                        <p>Penal</p>
-                        <p>Contabilidade: 61,67%</p>
-                        <p>Português: </p>
-                        <p>Constitucional: 74</p>
-                        <p>Inglês: 94</p>
-                        <p>Matemática: 6</p>
-                        <p>Informática: 100,00% | 15 de 15</p>
-                        <p>DF: 20</p>
-                        <p>Processual Penal: 20</p>
-                    </div>
-                </div>
+                <div id="cards"></div>
             </section>
         </main>
     </div>
