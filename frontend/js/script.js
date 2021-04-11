@@ -1,25 +1,31 @@
+class Backend {
+    constructor(path) {
+        this.path = path;
+    }
+    get promisse() {
+        return fetch(`http://127.0.0.1:8080/${this.path}`);
+    }
+}
+
 (function motivationalPhrase() {
-
+    const backendData = new Backend('index/image');
+    const imageSection = document.getElementById("motivational-phrase");
+    const nextMotivationalImage = document.querySelector("#pensamento-do-dia .next");
+    const defaultPhrase = './images/loading.gif';
+    
     function getMotivationalImage() {
-        const defaultPhrase = 'https://cdn.pensador.com/img/frase/ch/ar/charles_chaplin_a_persistencia_e_o_caminho_do_exito_lpx3e62.jpg';
-
-        (function captureHtml() {
-            fetch('https://www.mysite.com/getURLImage') //>>>-----------> Precisa ser implementado <-----------<<<
-                .then(response => response.json())
-                .then(json => assignImage(JSON.parse(json)))
-                .catch(assignImage(false));
-        })();
-
+        backendData.promisse
+        .then(response => response.json())
+        .then(json => assignImage(json))
+        .catch(assignImage(false));
+        
         function assignImage(json) {
-            const imageSection = document.getElementById("motivational-phrase");
-            const url = JSON.parse(json).url || defaultPhrase; //está .url porque suponho que este seja o campo do objeto. >>>-----------> Precisa ser implementado <-----------<<<
-
+            const url = json.url || defaultPhrase;
             imageSection.setAttribute('src', url);
         }
     };
     getMotivationalImage();
 
-    const nextMotivationalImage = document.querySelector("#pensamento-do-dia .next");
     nextMotivationalImage.addEventListener('click', e => getMotivationalImage());
 
 })();
