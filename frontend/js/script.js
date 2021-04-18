@@ -10,7 +10,7 @@ import { Backend } from './backendConnection.js';
         backendData.promisseGET
             .then(response => response.json())
             .then(json => assignImage(json))
-            .catch(assignImage(false));
+            .catch(err => assignImage(false));
 
         function assignImage(json) {
             const url = json.url || defaultPhrase;
@@ -73,7 +73,7 @@ class Table {
         backendData.promisseGET
             .then(response => response.json())
             .then(json => assignCell(json))
-            .catch(assignCell([]));
+            .catch(err => assignCell([]));
 
         function assignCell(json) {
             json.forEach(value => {
@@ -118,16 +118,19 @@ class Table {
 })();
 
 class DefaultLine {
-    constructor(url, alias) {
-        this.li = this.newElement('li');
-        const link = this.newElement('a', alias, { href: url, target: '_blank', rel: 'external' });
-        const remove = this.newElement('button', '🗑', { class: 'remove' });
-
-        this.appendChildren(this.line, link, remove);
+    constructor(id, url, alias) {
+        this.id = id;
+        this.url = url;
+        this.alias = alias;
     }
 
     get line() {
-        return this.li
+        const li = this.newElement('li', '', { class: this.id });
+        const link = this.newElement('a', this.alias, { href: this.url, target: '_blank', rel: 'external' });
+        const remove = this.newElement('button', '🗑', { class: 'remove' });
+        this.appendChildren(li, link, remove);
+
+        return li
     }
 
     //attention! Inform the attributes as objects, where key is attribute's name and value is attribute's value"
@@ -153,8 +156,6 @@ class DefaultLine {
     const form = document.querySelector("#materiais form");
     const linksList = document.querySelector("#materiais .links-list")
 
-    lineButtons();
-
     function getBackendMaterials() {
         backendData.promisseGET
             .then(response => response.json())
@@ -162,11 +163,10 @@ class DefaultLine {
             .catch(err => assignMaterials(false));
 
         function assignMaterials(json) {
-            if (json) { 
+            if (json) {
                 json.forEach(line => {
-                    const newLine = new DefaultLine(line.url, line.alias);
-                    linksList.appendChild(newLine.line);
-                    lineButtons();
+                    const newLine = new DefaultLine(line.id, line.url, line.alias);
+                    lineListener(linksList.appendChild(newLine.line));
                 });
             }
         }
@@ -186,23 +186,44 @@ class DefaultLine {
             alias.value = url.value.length < 16 ? url.value : url.value.substring(0, 15);
         }
 
-        const newLine = new DefaultLine(url.value, alias.value);
-        linksList.appendChild(newLine.line);
-        lineButtons();
+        const line = new DefaultLine(null, url.value, alias.value);
+
+        backendData.promissePOST(JSON.stringify(line))
+            .then(response => response.json())
+            .then(json => appendLine(json))
+            .catch(err => appendLine(false));
+
         url.value = '';
         alias.value = '';
     }
 
-    function lineButtons() {
-        const lines = document.querySelectorAll("#materiais .links-list li");
-        lines.forEach(line => {
-            line.querySelector('.remove').addEventListener('click', e => removeLine(e));
-        });
-    };
-
-    function removeLine(e) {
-        const element = e.target;
-        element.parentElement.remove();
+    function appendLine(json) {
+        const newLine = new DefaultLine(json.id, json.url, json.alias);
+        if (newLine) {
+            const link = linksList.appendChild(newLine.line);
+            lineListener(link);
+        } else {
+            alert('Não foi possível adicionar esse link');
+        }
     }
 
+    function lineListener(line) {
+        const btnRemove = line.querySelector('.remove');
+        btnRemove.addEventListener('click', e => tryRemove(line));
+    };
+
+    function tryRemove(line) {
+        backendData.promisseDELETE(line.classList.value)
+            .then(response => response.json())
+            .then(json => removeLine(json, line))
+            .catch(err => removeLine(err));
+    }
+
+    function removeLine(boolean, line) {
+        if (boolean === true) {
+            line.remove();
+        } else {
+            alert('Não foi possivel excluir esta linha.');
+        }
+    }
 })();

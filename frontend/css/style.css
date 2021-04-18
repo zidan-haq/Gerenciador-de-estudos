@@ -207,8 +207,12 @@ main section a {
     border: none;
     border-radius: 50%;
     font-size: 20px;
-    background-color: #5a0404;
+    background-color: #0a090c;
     color: #dadff7;
+}
+
+#materiais .links-list li {
+    line-height: 40px;
 }
 
 #materiais .links-list li:hover button {

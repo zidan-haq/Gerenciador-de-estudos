@@ -16,5 +16,20 @@ export class Backend {
             body: body
         });
     }
+
+    promissePOST(body) {
+        return fetch(urlBackend + this.path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: body
+        });
+    }
+
+    promisseDELETE(id) {
+        return fetch(urlBackend + this.path + '/' + id, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
 }
 
