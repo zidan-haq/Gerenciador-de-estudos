@@ -89,14 +89,15 @@ header {
     text-align: center;
 }
 
-header #main-container {
+#box-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     row-gap: 10px;
 }
 
-header #main-container .box {
+#box-container .box {
     display: grid;
     width: 300px;
     height: 200px;
@@ -112,14 +113,103 @@ header #main-container .box {
     background-size: 20px 20px;
 }
 
-header #main-container .box .box-img {
+#box-container .box.selected {
+    border-color: #e1ad62;
+    color: #e1ad62;
+}
+
+#box-container .box .box-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px;
+    align-items: flex-start;
+}
+
+#box-container .box .box-header .delete-box, #box-container .box .box-header .edit-box {
+    pointer-events: none;
+    opacity: 0;
+    width: 30px;
+    transition: 1s;
+}
+
+#box-container .box:hover .box-header .delete-box, #box-container .box:hover .box-header .edit-box {
+    pointer-events: all;
+    opacity: 1;
+}
+
+#box-container .box.selected .box-header .delete-box, #box-container .box.selected .box-header .edit-box {
+    pointer-events: all;
+    opacity: 1;
+}
+
+#box-container .box .box-header .box-img {
     height: 100px;
+    max-width: 200px;
     font-size: 70px;
 }
 
-header #main-container .box.selected {
+#box-container .box .box-content {
+    padding: 0px 5px;
+    font-size: 2rem;
+    width: 290px;
+    height: 79px;
+    resize: none;
+    border: none;
+    text-align: center;
+    overflow: hidden;
+    background-color: transparent;
+    color: #dadff7
+}
+
+#box-container .box .box-content:read-write {
+    width: 270px;
+    margin-left: 10px;
+    border-radius: 20px;
+    background-color: #dadff7;
+    color: #0a090c;
+}
+
+#box-container .box .url-img {
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #dadff7;
+    color: #0a090c;
+}
+
+#box-container .box .back {
+    width: 30px;
+}
+
+#box-container .box .save-box {
+    width: 30px;
+    margin-left: 40%;
+}
+
+#box-container .box .box-content:focus, #box-container .box .url-img:focus {
+    outline: none;
+}
+
+#add-box {
+    width: 7rem;
+    height: 7rem;
+    border: 2px solid #dadff7;
+    border-radius: 50%;
+    background: radial-gradient(#1b1b1b, transparent);
+    background-color: #0a090c;
+    background-size: 20px;
+    color: #dadff7;
+    font-size: 70px;
+}
+
+#add-box:active {
     border-color: #e1ad62;
     color: #e1ad62;
+}
+
+#add-box abbr {
+    text-decoration: none;
 }
 
 /* general part of main and sections */
@@ -209,20 +299,6 @@ main section input:read-only {
 
 main section textarea:read-only {
     color: #0a090c;
-}
-
-/* card config [section editais] */
-
-#card-config form {
-    display: grid;
-    row-gap: 10px;
-    border: 2px solid #07393c;
-    padding: 10px;
-}
-
-#card-config form div {
-    display: flex;
-    justify-content: space-between;
 }
 
 /* subjects [section editais] */

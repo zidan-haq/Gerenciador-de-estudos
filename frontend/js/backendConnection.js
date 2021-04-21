@@ -9,6 +9,10 @@ export class Backend {
         return fetch(urlBackend + this.path);
     }
 
+    promisseGETOne(id) {
+        return fetch(`${urlBackend}${this.path}/${id}`);
+    }
+
     promissePUT(body) {
         return fetch(urlBackend + this.path, {
             method: 'PUT',
@@ -26,9 +30,8 @@ export class Backend {
     }
 
     promisseDELETE(id) {
-        return fetch(urlBackend + this.path + '/' + id, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+        return fetch(`${urlBackend}${this.path}/${id}`, {
+            method: 'DELETE'
         });
     }
 }

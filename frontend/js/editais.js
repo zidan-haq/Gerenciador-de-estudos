@@ -1,39 +1,152 @@
-(function headerBoxes() {
-    const arrayBox = document.querySelectorAll('#main-container .box');
+import { Backend } from './backendConnection.js';
 
-    for (let box of arrayBox) {
-        box.addEventListener('click', e => {
-            boxSelected(box);
-        })
+// Box-container
+
+class BoxFactory {
+    constructor(id, urlImage, description, backendData) {
+        this.backendData = backendData;
+        this.box = newElement('div', { id, class: 'box' });
+        this.boxHeader = newElement('div', { class: 'box-header' });
+        this.delete = newElement('img', { class: 'delete-box', src: './images/remove.svg', alt: 'Apagar' });
+        this.image = newElement('img', { class: 'box-img', src: urlImage, alt: '🏜' });
+        this.edit = newElement('img', { class: 'edit-box', src: './images/edit.svg', alt: 'Editar' })
+        this.content = newElement('textarea', { class: 'box-content', maxlength: "30", spellcheck: "false", placeholder: 'Descrição', readonly: 'true' });
+
+        appendChildren(this.boxHeader, this.delete, this.image, this.edit);
+        appendChildren(this.box, this.boxHeader, this.content);
+
+        this.boxSelected();
+        this.deleteBox();
+        this.editBox(urlImage);
+        this.content.innerText = description;
+        this.limitRows();
+
+        return this.box;
     }
 
-    function boxSelected(box) {
-        arrayBox.forEach(box => box.classList.remove('selected'));
-        if (!box.classList.contains('selected')) box.classList.add('selected');
+    limitRows() {
+        this.content.addEventListener('keyup', e => {
+            let text = this.content.value;
+            this.content.value = text.replace('\n', '')
+        });
+    }
 
-        populateAndInitialize(box);
+    boxSelected() {
+        this.box.addEventListener('click', e => {
+            if (e.target !== this.image && e.target !== this.content) return null;
+            const arrayBox = document.querySelectorAll('#box-container .box');
+            const isSelected = this.box.classList.contains('selected');
+
+            arrayBox.forEach(box => box.classList.remove('selected'));
+            if (!isSelected) this.box.classList.add('selected');
+
+            populateAndInitialize(isSelected);
+        });
+    }
+
+    deleteBox() {
+        this.delete.addEventListener('click', e => {
+            this.backendData.promisseDELETE(this.box.getAttribute('id'))
+                .then(response => response.json())
+                .then(json => {
+                    if (json === true) {
+                        this.box.remove()
+                        const mainSection = document.getElementById("main-section");
+                        if (!mainSection.classList.contains('disabled')) mainSection.classList.add('disabled');
+                    }
+                })
+                .catch(err => alert("Não foi possível apagar este elmento."));
+        });
+    }
+
+    editBox(urlImage) {
+        this.edit.addEventListener('click', e => {
+            editCardLayout(this.box, this.content, urlImage, this.backendData);
+        });
+    }
+}
+
+function editCardLayout(box, content, urlImg, backendData) {
+    const div = newElement('div');
+    const back = newElement('img', { class: 'back', src: './images/back.svg' });
+    const save = newElement('img', { class: 'save-box', src: './images/save.svg' });
+    const urlImage = newElement('input', { class: 'url-img', type: 'text', placeholder: 'Endereço da imagem' });
+    urlImage.value = urlImg;
+    content.removeAttribute('readonly');
+
+    box.innerHTML = '';
+    appendChildren(div, back, save);
+    appendChildren(box, div, urlImage, content);
+
+    back.addEventListener('click', e => {
+        backendData.promisseGETOne(box.getAttribute("id"))
+            .then(response => response.json())
+            .then(json => replaceBox(json))
+            .catch(err => replaceBox(err));
+    });
+
+    save.addEventListener('click', e => {
+        const boxJson = `{"id": ${box.getAttribute("id")}, "urlImage": "${urlImage.value}", "content": "${content.value}"}`
+
+        backendData.promissePUT(boxJson)
+            .then(response => response.json())
+            .then(json => replaceBox(json))
+            .catch(err => replaceBox(err));
+
+    });
+
+    function replaceBox(json) {
+        try {
+            const originalBox = new BoxFactory(json.id, json.urlImage, json.content, backendData);
+            box.replaceWith(originalBox);
+        } catch (e) {
+            alert("Houve um erro.");
+        }
+    }
+}
+
+(function boxContainer() {
+    const addBox = document.getElementById('add-box');
+    const backendData = new Backend("editais");
+
+    addBox.addEventListener('click', e => {
+        const boxJson = `{"id": null, "urlImage": "#", "content": ""}`
+        backendData.promissePOST(boxJson)
+        .then(response => response.json())
+        .then(json => {
+            const box = new BoxFactory(json.id, json.urlImage, json.content, backendData)
+            addBox.insertAdjacentElement("beforebegin", box);
+        })
+        .catch(err => console.log(err));
+    });
+
+    backendData.promisseGET
+        .then(response => response.json())
+        .then(json => populateHeader(json))
+        .catch(err => console.log(err));
+
+    function populateHeader(json) {
+        json.forEach(box => {
+            addBox.insertAdjacentElement("beforebegin", new BoxFactory(box.id, box.urlImage, box.content, backendData));
+        });
     }
 })();
 
-function populateAndInitialize(box) {
-    document.querySelector('main .disabled').classList.remove('disabled');
-
+function populateAndInitialize(isSelected) {
+    const mainSection = document.getElementById("main-section");
+    if (mainSection.classList.contains('disabled') || !isSelected) {
+        mainSection.classList.remove('disabled');
+        //popule os campos aqui;
+    } else {
+        mainSection.classList.add('disabled');
+    }
+    /*
     sectionEdital();
     sectionDisciplinas();
-    sectionObservacoes();
-    sectionCartaoApresentacao();
-    populateFields(new Backend(box));
+    sectionObservacoes(); */
 }
 
-class Backend {
-    constructor(box) {
-        box;
-    }
-
-    datasOf(box) {
-        /* é necessário implementar essa parte para receber os dados do backend e fornêce-los a função principal >>>--------------> Falta implementar <--------------<<<*/
-    }
-}
+// Section edital
 
 function sectionEdital() {
 
@@ -156,22 +269,9 @@ function sectionObservacoes() {
     })
 }
 
-function sectionCartaoApresentacao() {
-    const cardForm = document.querySelector('#card-config form');
-    const cardName = document.getElementById('card-name');
-    const urlCardImage = document.getElementById('card-image');
-    const buttonEdit = document.getElementById('edit-card');
-
-    cardForm.addEventListener('submit', e => {
-        e.preventDefault();
-        setReadOnly(cardName, new Object());
-        setReadOnly(urlCardImage, buttonEdit);
-    });
-}
-
 /* Nessa parte os elementos são povoados pelo backend >>>--------------> Falta implementar <--------------<<< */
 function populateFields(dados) {
-    
+
 };
 
 function setReadOnly(fieldReadOnly, button) {
@@ -203,19 +303,19 @@ function createLine() {
     appendChildren(subjectForm, subjectName, editSubjectName, deleteSubjectName, showMore);
     appendChildren(liMain, subjectForm, ul);
 
-    function newElement(type, attributes) {
-        const element = document.createElement(type);
-        for (let key in attributes) {
-            element.setAttribute(key, attributes[key]);
-        }
-        return element;
-    }
-
-    function appendChildren(parent, ...children) {
-        for (let child of children) {
-            parent.appendChild(child);
-        }
-    }
-
     return liMain;
+}
+
+function newElement(type, attributes) {
+    const element = document.createElement(type);
+    for (let key in attributes) {
+        element.setAttribute(key, attributes[key]);
+    }
+    return element;
+}
+
+function appendChildren(parent, ...children) {
+    for (let child of children) {
+        parent.appendChild(child);
+    }
 }

@@ -25,35 +25,12 @@
     <div id="page-container">
         <header>
             <h1>Editais</h1>
-            <div id="main-container">
-                <div class="box">
-                    <div>
-                        <img class='box-img' alt="&#127964;">
-                    </div>
-                    <div>
-                        Polícia Civil<br>Escrivão
-                    </div>
-                </div>
-                <div class="box">
-                    <div>
-                        <img class='box-img' src="./images/logo-pcdf.png" alt="&#127964;">
-                    </div>
-                    <div>
-                        Polícia Civil<br>Agente
-                    </div>
-                </div>
-                <div class="box">
-                    <div>
-                        <img class='box-img' src="./images/logo-pf.png" alt="&#127964;">
-                    </div>
-                    <div>
-                        Polícia Federal<br>Agente
-                    </div>
-                </div>
+            <div id="box-container">
+                <button id="add-box"><abbr title="Adicionar Concurso">+</abbr></button>
             </div>
         </header>
         <main>
-            <section class="disabled">
+            <section id="main-section" class="disabled">
                 <div>
                     <h2>Edital</h2>
                     <form id='edital-completo' action="">
@@ -90,27 +67,16 @@
                 <div id="comments">
                     <h2>Observações</h2>
                     <form action="">
-                        <textarea id="comments-content" cols="30" rows="10" readonly='true' placeholder="Escreva aqui..."></textarea>
+                        <textarea id="comments-content" cols="30" rows="10" readonly='true'
+                            placeholder="Escreva aqui..."></textarea>
                         <input id="edit-comments" type="submit" value="&#128466;">
-                    </form>
-                </div>
-                <div id="card-config">
-                    <h2>Cartão de apresentação</h2>
-                    <form action="">
-                        <div>
-                            <label for="card-name">Nome no cartão de apresentação</label>
-                            <input type="submit" id="edit-card" value="&#128466;">
-                        </div>
-                        <input type="text" id="card-name" readonly='true'>
-                        <label for="card-image">URL da imagem</label>
-                        <input type="url" id="card-image" readonly='true'>
                     </form>
                 </div>
             </section>
         </main>
     </div>
 
-    <script src="./js/editais.js"></script>
+    <script type="module" src="./js/editais.js"></script>
 </body>
 
 </html>
