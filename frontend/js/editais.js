@@ -1,4 +1,5 @@
 import { Backend } from './backendConnection.js';
+import { getMainSection, createLine, newElement, appendChildren } from './editaisMainSection.js';
 
 // Box-container
 
@@ -40,7 +41,7 @@ class BoxFactory {
             arrayBox.forEach(box => box.classList.remove('selected'));
             if (!isSelected) this.box.classList.add('selected');
 
-            populateAndInitialize(isSelected);
+            populateAndInitialize(isSelected, this.box.getAttribute('id'));
         });
     }
 
@@ -48,13 +49,7 @@ class BoxFactory {
         this.delete.addEventListener('click', e => {
             this.backendData.promisseDELETE(this.box.getAttribute('id'))
                 .then(response => response.json())
-                .then(json => {
-                    if (json === true) {
-                        this.box.remove()
-                        const mainSection = document.getElementById("main-section");
-                        if (!mainSection.classList.contains('disabled')) mainSection.classList.add('disabled');
-                    }
-                })
+                .then(json => { if (json === true) { this.box.remove(); cleanMainSection(); } })
                 .catch(err => alert("Não foi possível apagar este elmento."));
         });
     }
@@ -105,19 +100,44 @@ function editCardLayout(box, content, urlImg, backendData) {
     }
 }
 
+function populateAndInitialize(isSelected, id) {
+    const mainSection = document.getElementById("main-section");
+
+    if (!mainSection || !isSelected) {
+        const main = document.querySelector("main");
+        main.innerHTML = '';
+
+        getMainSection(main)
+            .then(response => {
+                sectionEdital(id);
+                sectionDisciplinas(id);
+                sectionObservacoes(id);
+            })
+            .catch(err => alert("Houve um problema ao carregar os dados desse concurso."))
+
+    } else {
+        cleanMainSection();
+    }
+}
+
+function cleanMainSection() {
+    const main = document.querySelector("main");
+    main.innerHTML = '';
+};
+
 (function boxContainer() {
     const addBox = document.getElementById('add-box');
     const backendData = new Backend("editais");
 
     addBox.addEventListener('click', e => {
-        const boxJson = `{"id": null, "urlImage": "#", "content": ""}`
+        const boxJson = `{"id": null, "urlImage": "", "content": ""}`
         backendData.promissePOST(boxJson)
-        .then(response => response.json())
-        .then(json => {
-            const box = new BoxFactory(json.id, json.urlImage, json.content, backendData)
-            addBox.insertAdjacentElement("beforebegin", box);
-        })
-        .catch(err => console.log(err));
+            .then(response => response.json())
+            .then(json => {
+                const box = new BoxFactory(json.id, json.urlImage, json.content, backendData)
+                addBox.insertAdjacentElement("beforebegin", box);
+            })
+            .catch(err => console.log(err));
     });
 
     backendData.promisseGET
@@ -132,190 +152,166 @@ function editCardLayout(box, content, urlImg, backendData) {
     }
 })();
 
-function populateAndInitialize(isSelected) {
-    const mainSection = document.getElementById("main-section");
-    if (mainSection.classList.contains('disabled') || !isSelected) {
-        mainSection.classList.remove('disabled');
-        //popule os campos aqui;
-    } else {
-        mainSection.classList.add('disabled');
-    }
-    /*
-    sectionEdital();
-    sectionDisciplinas();
-    sectionObservacoes(); */
-}
-
 // Section edital
 
-function sectionEdital() {
-
+function sectionEdital(id) {
+    const backendData = new Backend("editais/edital");
     const formEditalCompleto = document.getElementById('edital-completo');
     const linkEditalCompleto = document.getElementById('link-edital-completo');
     const btnLinkEditalCompleto = document.getElementById('btn-link-edital-completo');
 
+    backendData.promisseGETOne(id)
+        .then(response => response.json())
+        .then(json => { if (json.link) linkEditalCompleto.value = json.link })
+        .catch(err => console.log("Houve um erro ao recuperar o link para o edital."));
+
     formEditalCompleto.addEventListener('submit', e => {
         e.preventDefault();
-        setReadOnly(linkEditalCompleto, btnLinkEditalCompleto);
+
+        const json = `{"id": ${id}, "link": "${linkEditalCompleto.value}"}`;
+        const msgErr = "Não foi possível salvar o link.";
+        if (setReadOnly(linkEditalCompleto, btnLinkEditalCompleto)) updateText(backendData, json, msgErr);
     });
 }
 
+// Section disciplinas
+
 function sectionDisciplinas() {
-    const subjectForms = () => document.querySelectorAll('.subject-form');
-    const subjectContentForms = () => document.querySelectorAll('.subject-content-form');
-    const addLine = document.getElementById('add-line');
+    const backendData = new Backend("editais/subject");
+    const addLine = document.getElementById("add-line");
 
-    subjectForms().forEach(form => treatSubjectForm(form));
-    subjectContentForms().forEach(form => treatSubjectContentForm(form));
+    backendData.promisseGET
+        .then(response => response.json())
+        .then(json => json.forEach(subject => appendLine(subject, addLine, backendData)))
+        .catch(err => console.log("Não foi possível recuperar os dados dessa matéria."));
 
-    function treatSubjectForm(form) {
-        const edit = form.querySelector('.edit-subject-name');
-        const del = form.querySelector('.delete-subject-name');
-        const more = form.querySelector('.show-more');
+    addLine.addEventListener('click', e => {
+        backendData.promissePOST(null)
+            .then(response => response.json())
+            .then(subject => appendLine(subject, addLine, backendData))
+            .catch(err => console.log("Não foi possível adicionar mais uma matéria."))
+    });
+}
 
-        edit.addEventListener('click', e => {
-            e.preventDefault();
-            editSubjectName(edit, form);
-        });
-
-        del.addEventListener('click', e => {
-            e.preventDefault();
-            deleteSubjectName(subjectForms().length, form);
-        });
-
-        more.addEventListener('click', e => {
-            e.preventDefault();
-            showMore(more, form);
-        });
+function appendLine(subjectData, addLine, backendData) {
+    const ul = document.querySelector('#subjects ul');
+    let subjectName = null;
+    if(ul.children.length > 0) {
+        subjectName = ul.lastElementChild.querySelector('.subject-name');
     }
+    
+    if (subjectName === null || subjectName.value) {
+        const li = createLine(subjectData);
+        const subjectForm = li.querySelector('.subject-form');
 
-    function treatSubjectContentForm(form) {
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const subjectContent = form.querySelector('.subject-content');
-            const saveMore = form.querySelector('.save-more');
-            setReadOnly(subjectContent, saveMore);
-        });
+        treatSubjectForm(subjectForm, backendData);
+
+        ul.appendChild(li);
+    } else if(!document.getElementById('add-line-error')) {
+        const span = newElement('span', {id: 'add-line-error'});
+        span.innerText = 'Antes de realizar essa ação, é necessário preencher todas as linhas.';
+        addLine.insertAdjacentElement('afterend', span);
+        setTimeout(() => {
+            span.remove();
+        }, 3000);
     }
+}
 
-    function editSubjectName(button, form) {
-        const subjectName = form.querySelector(".subject-name");
-        setReadOnly(subjectName, button);
-    }
+function treatSubjectForm(form, backendData) {
+    const name = form.querySelector('.subject-name')
+    const edit = form.querySelector('.edit-subject-name');
+    const del = form.querySelector('.delete-subject-name');
+    const more = form.querySelector('.show-more');
+    const content = form.querySelector('.subject-content');
+    const editContent = form.querySelector('.edit-content');
 
-    function deleteSubjectName(quantity, form) {
-        if (confirm('Deseja apagar essa matéria?')) {
-            const li = form.parentElement;
-            if (quantity === 1) {
-                const subject = form.querySelector(".subject-name");
-                const subjectContent = li.querySelector(".subject-content-form .subject-content")
-                subject.value = '';
-                subjectContent.value = '';
+    edit.addEventListener('click', e => {
+        e.preventDefault();
+        const json = `{"id": ${form.getAttribute('id')}, "name": "${name.value}", "content": null}`;
+        const msgErr = "Não foi possível salvar o nome da matéria.";
+        if (setReadOnly(name, edit)) updateText(backendData, json, msgErr);
+    });
 
-                /* Nessa parte a exclusão dos elementos é salva no backend, deve ser o mesmo método usado no else logo abaixo >>>--------------> Falta implementar <--------------<<< */
-            } else {
-                li.remove();
+    del.addEventListener('click', e => {
+        e.preventDefault();
+        deleteSubject(form, backendData);
+    });
 
-                /* Nessa parte a exclusão dos elementos é salva no backend >>>--------------> Falta implementar <--------------<<< */
-            }
-        }
-    }
+    more.addEventListener('click', e => {
+        e.preventDefault();
+        showMore(more, form);
+    });
 
-    function showMore(button, form) {
-        const li = form.parentElement;
-        const more = li.querySelector('.more');
-
-        if (more.classList.contains('disabled')) {
-            more.classList.remove('disabled');
-        } else {
-            more.classList.add('disabled');
-        }
-        button.value = button.value === '▼' ? '▲' : '▼';
-    }
-
-    addLine.addEventListener('click', () => {
-        const ul = document.querySelector('#subjects ul');
-        const subjectName = ul.lastElementChild.querySelector('.subject-name');
-
-        if (subjectName.value) {
-            const li = createLine();
-            const subjectForm = li.querySelector('.subject-form');
-            const subjectContentForm = li.querySelector('.subject-content-form');
-
-            treatSubjectForm(subjectForm);
-            treatSubjectContentForm(subjectContentForm);
-
-            ul.appendChild(li);
-        } else {
-            const span = document.createElement('span');
-            span.innerText = 'Antes de realizar essa ação, é necessário preencher todas as linhas.';
-            span.setAttribute('id', 'add-line-error')
-            addLine.insertAdjacentElement('afterend', span);
-            setTimeout(() => {
-                document.getElementById('add-line-error').remove();
-            }, 3000);
-        }
+    editContent.addEventListener('click', e => {
+        e.preventDefault();
+        const contentValue = content.value.replace(/\n/g, '\\n');
+        const json = `{"id": ${form.getAttribute('id')}, "name": null, "content": "${contentValue}"}`;
+        const msgErr = "Não foi possível salvar o conteúdo da matéria.";
+        if (setReadOnly(content, editContent)) updateText(backendData, json, msgErr);
     })
 }
 
-function sectionObservacoes() {
+function deleteSubject(form, backendData) {
+    if (confirm('Deseja apagar essa matéria?')) {
+        const li = form.parentElement;
+        const msgErr = "Não foi possível apagar essa matéria.";
+        
+        backendData.promisseDELETE(form.getAttribute('id'))
+            .then(response => response ? li.remove() : alert(msgErr))
+            .catch(err => alert(msgErr));
+    }
+}
+
+function showMore(button, form) {
+    const more = form.querySelector('.more');
+
+    if (more.classList.contains('disabled')) {
+        more.classList.remove('disabled');
+    } else {
+        more.classList.add('disabled');
+    }
+    button.value = button.value === '▼' ? '▲' : '▼';
+}
+
+// Section observações
+
+function sectionObservacoes(id) {
+    const backendData = new Backend("editais/comment");
     const commentsForm = document.querySelector('#comments form');
     const textarea = document.getElementById('comments-content');
     const buttonEdit = document.getElementById('edit-comments');
 
+    backendData.promisseGETOne(id)
+        .then(response => response.json())
+        .then(json => { if (json.comments) textarea.value = json.comments })
+        .catch(err => console.log("Houve um erro ao recuperar os comentários."));
+
     commentsForm.addEventListener('submit', e => {
         e.preventDefault();
-        setReadOnly(textarea, buttonEdit);
-    })
+
+        const json = `{"id": ${id}, "comments": "${textarea.value}"}`;
+        const msgErr = "Não foi possível salvar os comentários.";
+        if (setReadOnly(textarea, buttonEdit)) updateText(backendData, json, msgErr);
+    });
 }
 
-/* Nessa parte os elementos são povoados pelo backend >>>--------------> Falta implementar <--------------<<< */
-function populateFields(dados) {
-
-};
+// General purpose functions
 
 function setReadOnly(fieldReadOnly, button) {
+    let save = false;
     if (fieldReadOnly.getAttribute('readonly')) {
         fieldReadOnly.removeAttribute('readonly');
     } else {
         fieldReadOnly.setAttribute('readonly', 'true');
-        /* Nessa parte os elementos são salvos no backend >>>--------------> Falta implementar <--------------<<< */
+        save = true;
     }
     button.value = button.value === '🗒' ? '✔' : '🗒';
+    return save;
 }
 
-function createLine() {
-    const liMain = newElement('li');
-    const subjectForm = newElement('form', { class: 'subject-form' });
-    const subjectName = newElement('input', { class: 'subject-name', type: 'text', placeholder: 'Nome da matéria', readonly: 'true' });
-    const editSubjectName = newElement('input', { class: 'edit-subject-name', type: "submit", value: '🗒' });
-    const deleteSubjectName = newElement('input', { class: "delete-subject-name", type: "submit", value: '🗑' });
-    const showMore = newElement('input', { class: "show-more", type: "submit", value: '▼' });
-    const ul = newElement('ul');
-    const liSub = newElement('li', { class: "more disabled" });
-    const subjectContentForm = newElement('form', { class: "subject-content-form" });
-    const subjectContent = newElement('textarea', { class: "subject-content", cols: "30", rows: "10", readonly: 'true' });
-    const saveMore = newElement('input', { class: "save-more", type: "submit", value: '🗒' });
-
-    appendChildren(subjectContentForm, subjectContent, saveMore);
-    appendChildren(liSub, subjectContentForm);
-    appendChildren(ul, liSub);
-    appendChildren(subjectForm, subjectName, editSubjectName, deleteSubjectName, showMore);
-    appendChildren(liMain, subjectForm, ul);
-
-    return liMain;
-}
-
-function newElement(type, attributes) {
-    const element = document.createElement(type);
-    for (let key in attributes) {
-        element.setAttribute(key, attributes[key]);
-    }
-    return element;
-}
-
-function appendChildren(parent, ...children) {
-    for (let child of children) {
-        parent.appendChild(child);
-    }
+function updateText(backendData, json, msgErr) {
+    backendData.promissePUT(json)
+        .then(response => response.json())
+        .then(json => { if (!json) alert(msgErr) })
+        .catch(err => alert(msgErr))
 }

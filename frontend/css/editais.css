@@ -310,6 +310,11 @@ main section textarea:read-only {
 }
 
 #subjects .subject-form {
+    display: grid;
+    row-gap: 5px;
+}
+
+#subjects .subject-form .main-part {
     display: flex;
     column-gap: 5px;
 }
