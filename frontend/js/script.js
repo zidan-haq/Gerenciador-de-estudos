@@ -4,7 +4,7 @@ import { Backend } from './backendConnection.js';
     const backendData = new Backend('index/image');
     const imageSection = document.getElementById("motivational-phrase");
     const nextMotivationalImage = document.querySelector("#pensamento-do-dia .next");
-    const defaultPhrase = './images/loading.gif';
+    const defaultPhrase = './images/loading.svg';
 
     function getMotivationalImage() {
         backendData.promisseGET
@@ -13,8 +13,10 @@ import { Backend } from './backendConnection.js';
             .catch(err => assignImage(false));
 
         function assignImage(json) {
-            const url = json.url || defaultPhrase;
-            imageSection.setAttribute('src', url);
+            if(json.url) {
+                imageSection.setAttribute('src', json.url);
+                imageSection.removeAttribute('style');
+            }
         }
     };
     getMotivationalImage();

@@ -1,5 +1,6 @@
-/* general */
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap');
 
+/* general */
 
 a, a:link, a:visited, abbr {
     text-decoration: none;
@@ -101,13 +102,25 @@ header h1 {
     text-align: center;
 }
 
-header div {
+#no-data {
+    margin: 0;
+    text-align: center;
+    font-family: 'Freckle Face', cursive;
+    font-size: 5em;
+    color: #07393c;
+}
+
+#no-data #loading {
+    width: 200px;
+}
+
+header #history {
     display: flex;
     flex-wrap: wrap;
     column-gap: 2rem;
 }
 
-header span {
+header #ranking-subjects {
     display: flex;
 }
 
@@ -212,15 +225,18 @@ main section h1 {
     flex-wrap: wrap;
     margin-top: 20px;
     justify-content: space-evenly;
-    justify-items: center;
+    align-items: center;
     row-gap: 20px;
+}
+
+#cards .card p {
+    margin: 0;
 }
 
 #cards .card {
     padding: 10px 20px;
     border: 3px inset #dadff7;
-    box-shadow: 2px 2px 5px black;
-    line-height: 0;
+    box-shadow: 0px 1px 2px black;
     color: #dadff7;
     background: linear-gradient(45deg, #07393c 2px, transparent 2px);
     background-size: 2px 2px;
@@ -228,9 +244,26 @@ main section h1 {
 }
 
 #cards .card:hover {
-    transition: .5s;
-    transform: translate(0, -5px);
-    box-shadow: 1px 1px 8px black;
+    transition: .1s;
+    transform: translate(0, -2px);
+    box-shadow: 0px 1px 3px black;
+}
+
+#cards .details {
+    margin-top: 1rem;
+    padding-top: 5px;
+    background: linear-gradient(45deg, #0a090c 2px, transparent 2px);
+    background-size: 2px 2px;
+    background-color: #07393c;
+}
+
+#cards .details td {
+    border: none;
+    text-align: center;
+}
+
+#cards .details.disabled {
+    display: none;
 }
 
 /* modal window */
