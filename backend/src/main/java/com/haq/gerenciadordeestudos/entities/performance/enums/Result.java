@@ -1,13 +1,13 @@
 package com.haq.gerenciadordeestudos.entities.performance.enums;
 
-public enum RESULT {
+public enum Result {
 	ALTO("Alto"),
 	MEDIO("Médio"),
 	BAIXO("Baixo");
 	
 	public String description;
 	
-	RESULT(String description) {
+	Result(String description) {
 		this.description = description;
 	}
 	

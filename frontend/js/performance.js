@@ -5,10 +5,12 @@ import { createRankingTable, createCard, newElement, appendChildren } from './pe
     const backendData = new Backend("performance");
     backendData.promisseGET
         .then(response => response.json())
-        .then(json => { if (json) initiate() })
-        .catch(err => { console.log(err); alert('Houve um erro ao conectar com a aplicação.') });
+        .then(json => json ? initiate() : notFound())
+        .catch(err => {
+            alert('Houve um erro ao conectar com a aplicação.');
+            notFound()
+        });
 })();
-
 
 function notFound() {
     const paragraph = document.createElement('p');
@@ -23,9 +25,9 @@ function initiate() {
     const noData = document.getElementById('no-data');
     noData.classList.add('disabled');
     mainHeader.classList.remove('disabled');
-    
+
     header();
-    //sectionProofs();
+    sectionProofs();
 }
 
 function header() {
@@ -70,24 +72,34 @@ function populateRanking(json) {
         }
     });
 }
-
-function sectionProofs() {
+(function fieldOrderBy() {
     const selectOrderBy = document.getElementById('order-by');
 
     selectOrderBy.addEventListener('change', () => {
-        orderBy(backendData.proofs);
-        populateSectionProofs(backendData);
+        sectionProofs()
     });
+})();
 
-    orderBy(backendData.proofs);
-    populateSectionProofs(backendData);
+function sectionProofs() {
+    const backendData = new Backend("performance/proofs");
+    const btnManageProof = document.getElementById("manage-proof");
+
+    backendData.promisseGET
+        .then(response => response.json())
+        .then(json => {
+            orderBy(json);
+            populateSectionProofs(json)
+        })
+        .catch(err => console.log("Houve um erro ao consultar o banco de dados."));
+
+    btnManageProof.addEventListener('click', e => manageProof());
 }
 
 function orderBy(proofs) {
     const value = document.getElementById('order-by').value;
 
     if (value === 'date') {
-        proofs.sort((proof1, proof2) => (proof1.date - proof2.date));
+        proofs.sort((proof1, proof2) => proof1.date > proof2.date ? -1 : 1);
     } else if (value === 'name') {
         proofs.sort((proof1, proof2) => {
             const first = proof1.name.toLowerCase();
@@ -96,8 +108,8 @@ function orderBy(proofs) {
         });
     } else {
         proofs.sort((proof1) => {
-            if (proof1.type === 'certo e errado') return 1;
-            if (proof1.type === 'multipla escolha') return -1;
+            if (proof1.type === 'CERTO_E_ERRADO') return 1;
+            if (proof1.type === 'MULTIPLA_ESCOLHA') return -1;
         });
     }
     return proofs;
@@ -106,93 +118,12 @@ function orderBy(proofs) {
 function populateSectionProofs(backendData) {
     const cards = document.getElementById('cards');
     cards.innerHTML = '';
-    backendData.proofs.forEach(proof => {
+    backendData.forEach(proof => {
         const card = createCard(proof);
         cards.appendChild(card);
     })
 }
 
-function backend() {
-    return {
-        proofs: [
-            {
-                id: 1,
-                result: 'Seu desempenho foi BAIXO',
-                name: 'aolícia Civil - Agente',
-                date: 1957,
-                type: 'certo-e-errado',
-                quantity: "quantidade: 120",
-                correct: "corretas: 94",
-                blank: "brancas: 6",
-                wrong: "erradas: 20",
-                positived: "positivadas: 74",
-                percentage: "porcentagem: 61.67",
-                subjects: [
-                    {
-                        name: "Direito administrativo da administração pública do distrito federal",
-                        percentage: "100,00%",
-                        points: "12 de 12"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                result: 'MÉDIO',
-                name: 'Escrivão - PCDF',
-                date: '15/05/2021',
-                type: 'certo-e-errado',
-                quantity: "quantidade: 120",
-                correct: "corretas: 94",
-                blank: "brancas: 6",
-                wrong: "erradas: 20",
-                positived: "positivadas: 74",
-                percentage: "porcentagem: 61.67",
-                subjects: [
-                    {
-                        name: "Direito administrativo da administração pública do distrito federal",
-                        percentage: "100,00%",
-                        points: "12 de 12"
-                    }
-                ]
-            },
-            {
-                id: 3,
-                result: 'ALTO',
-                name: 'abadiania Serpro - Dev. Sistem.',
-                date: 2021,
-                type: 'multipla escolha',
-                quantity: "120",
-                correct: "99",
-                blank: "12",
-                wrong: "9",
-                positived: "90",
-                percentage: "75,00%",
-                subjects: [
-                    {
-                        name: "Português",
-                        percentage: "100,00%",
-                        points: "12 de 12"
-                    },
-                    {
-                        name: "Matemática",
-                        percentage: "100,00%",
-                        points: "15 de 15"
-                    },
-                    {
-                        name: "Legislação",
-                        percentage: "100,00%",
-                        points: "17 de 20"
-                    }, {
-                        name: "Ética",
-                        percentage: "100,00%",
-                        points: "10 de 15"
-                    }, {
-                        name: "Constitucional",
-                        percentage: "100,00%",
-                        points: "6 de 6"
-                    }
-                ]
-            }
-        ]
-    }
+function manageProof() {
+
 }

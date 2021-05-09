@@ -2,25 +2,30 @@ package com.haq.gerenciadordeestudos.entities.performance;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.Calendar;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.haq.gerenciadordeestudos.entities.performance.enums.Result;
+import com.haq.gerenciadordeestudos.entities.performance.enums.Type;
 
-public class Subject implements Serializable {
+public class Proof implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	private Long id;
 	private String name;
-	@JsonIgnore
+	private Type type;
+	private Calendar date;
 	private List<Question> questions;
 
-	public Subject() {
+	public Proof() {
 	}
 
-	public Subject(Long id, String name, List<Question> questions) {
+	public Proof(Long id, String name, Type type, Calendar date, List<Question> questions) {
 		this.id = id;
 		this.name = name;
+		this.type = type;
+		this.date = date;
 		this.questions = questions;
 	}
 
@@ -40,6 +45,22 @@ public class Subject implements Serializable {
 		this.name = name;
 	}
 
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
 	public List<Question> getQuestions() {
 		return questions;
 	}
@@ -51,41 +72,35 @@ public class Subject implements Serializable {
 	public int getPoints() {
 		int positives = getQuestions().stream()
 				.mapToInt(question -> question.getPoint())
-				.reduce(0, (v1, v2) -> v1 + v2);
+				.reduce(0, Integer::sum);
 		return positives;
 	}
-
+	
 	public Double getPercentage() {
 		BigDecimal points = new BigDecimal(getPoints());
 		BigDecimal hundred = new BigDecimal(100);
 		BigDecimal quantQuestions = new BigDecimal(getQuestions().size());
 		BigDecimal percentage = points.multiply(hundred).divide(quantQuestions);
-		percentage = percentage.round(new MathContext(2));
+		percentage = percentage.setScale(2, RoundingMode.HALF_EVEN);
 		return percentage.doubleValue();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Subject other = (Subject) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public Result getResult() {
+		double high = 80;
+		double average = 70;
+		Double percentage = getPercentage();
+		
+		if(type == Type.CERTO_E_ERRADO) {
+			high = 75;
+			average = 66.66;
+		}
+		
+		if (percentage > high) {
+			return Result.ALTO;
+		}
+		if (percentage > average) {
+			return Result.MEDIO;
+		}
+		return Result.BAIXO;
 	}
 }

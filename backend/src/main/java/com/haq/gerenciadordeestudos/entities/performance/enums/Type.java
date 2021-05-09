@@ -1,12 +1,12 @@
 package com.haq.gerenciadordeestudos.entities.performance.enums;
 
-public enum TYPE {
+public enum Type {
 	MULTIPLA_ESCOLHA("multipla escolha"),
 	CERTO_E_ERRADO("certo e errado");
 	
 	private String description;
 	
-	TYPE(String description) {
+	Type(String description) {
 		this.description = description;
 	}
 	

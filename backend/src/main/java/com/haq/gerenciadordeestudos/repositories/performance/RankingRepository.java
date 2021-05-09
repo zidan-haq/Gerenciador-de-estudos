@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.haq.gerenciadordeestudos.entities.performance.Ranking;
+import com.haq.gerenciadordeestudos.dto.performance.Ranking;
 
 @Repository
 public class RankingRepository {

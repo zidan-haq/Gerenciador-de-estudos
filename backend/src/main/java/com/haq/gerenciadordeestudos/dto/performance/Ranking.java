@@ -1,4 +1,4 @@
-package com.haq.gerenciadordeestudos.entities.performance;
+package com.haq.gerenciadordeestudos.dto.performance;
 
 public class Ranking {
 	private String name;

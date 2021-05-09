@@ -1,23 +1,18 @@
-function translate(word) {
-    const dictionary = {
-        name: '',
-        type: 'Tipo:',
-        date: 'Data:',
-        result: 'Seu desempenho foi',
-        quantQuestions: 'Quantidade de questões:',
-        corrects: 'Corretas:',
-        blanks: 'Em branco:',
-        wrongs: 'Erradas:',
-        positived: 'Positivadas:',
-        percentage: 'Porcentagem:'
-    }
-    const translated = dictionary[word];
-
-    return translated === undefined ? word : translated;
+const dictionary = {
+    name: '',
+    result: 'Seu desempenho foi',
+    type: 'Tipo:',
+    date: 'Data:',
+    quantity: 'Quantidade de questões:',
+    correct: 'Corretas:',
+    blank: 'Em branco:',
+    wrong: 'Erradas:',
+    positived: 'Positivadas:',
+    percentage: 'Porcentagem:'
 }
 
 export function createRankingTable(subjects) {
-    const table = newElement('table', {id: 'ranking-table'});
+    const table = newElement('table', { id: 'ranking-table' });
     const rowHeader = createRow('th', 'Nome da matéria', 'Quantidade de questões', 'Nota média');
     table.appendChild(rowHeader);
 
@@ -31,30 +26,44 @@ export function createRankingTable(subjects) {
 
 export function createCard(proof) {
     const card = newElement('div', { id: proof.id, class: 'card' });
+    formatProof(proof);
     addLines(card, proof);
-
-    card.addEventListener('click', () => {
-        const details = card.querySelector(".details");
-        if (details.classList.contains('disabled')) {
-            details.classList.remove('disabled')
-        } else {
-            details.classList.add('disabled');
-        }
-    });
-
+    const details = card.querySelector(".details");
+    if (details) {
+        card.addEventListener('click', () => {
+            details.classList.contains('disabled') ?
+                details.classList.remove('disabled') :
+                details.classList.add('disabled');
+        });
+    }
     return card;
 }
 
+function formatProof(proof) {
+    proof.date = new Date(proof.date).toLocaleString();
+    proof.type = proof.type.replaceAll("_", " ").toLowerCase();
+    proof.percentage = proof.percentage + "%";
+}
+
 function addLines(card, proof) {
-    for (let attr in proof) {
-        if (attr !== 'subjects') {
-            const text = translate(attr);
-            const paragraph = newElement('p', null, `${text} ${proof[attr]}`);
+    for (let attr in dictionary) {
+        const text = proof[attr];
+        const paragraph = newElement('p', null, `${dictionary[attr]} ${text}`);
+        if (text !== undefined) {
             card.appendChild(paragraph);
-        } else {
-            card.appendChild(addTableDetails(proof[attr]));
+            delete proof[attr];
         }
     }
+
+    for (let attr in proof) {
+        if (attr !== 'subjects' && attr !== 'id') {
+            const paragraph = newElement('p', null, `${attr}: ${proof[attr]}`);
+            card.appendChild(paragraph);
+        }
+    }
+
+    const subjects = proof.subjects;
+    if (subjects) card.appendChild(addTableDetails(subjects));
 }
 
 function addTableDetails(subjects) {

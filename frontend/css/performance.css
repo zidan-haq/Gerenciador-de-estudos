@@ -118,6 +118,7 @@ header #history {
     display: flex;
     flex-wrap: wrap;
     column-gap: 2rem;
+    color: #dadff7;
 }
 
 header #ranking-subjects {
@@ -196,23 +197,12 @@ main section h1 {
     outline: none;
 }
 
-#insert-proof {
+#manage-proof {
     height: calc(16px + 1vw);
     border: none;
     box-shadow: 1px 1px 3px #0a090c;
     border-radius: 5px;
     background-color: #07393c;
-    color: #dadff7;
-    font-weight: bold;
-    font-size: calc(3px + 1vw);
-}
-
-#delete-proof {
-    height: calc(16px + 1vw);
-    border: none;
-    box-shadow: 1px 1px 3px #0a090c;
-    border-radius: 5px;
-    background-color: #6e0d0d;
     color: #dadff7;
     font-weight: bold;
     font-size: calc(3px + 1vw);
@@ -230,7 +220,15 @@ main section h1 {
 }
 
 #cards .card p {
-    margin: 0;
+    margin: 5px;
+}
+
+#cards .card p:first-child {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Noto";
+    color: #e1ad62;
 }
 
 #cards .card {
