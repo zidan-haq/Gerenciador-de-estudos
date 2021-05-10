@@ -72,9 +72,4 @@ public class CardRepository {
 
 		return cards;
 	}
-
-	public Boolean removeAll() {
-		return true;
-	}
-
 }
