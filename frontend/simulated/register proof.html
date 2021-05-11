@@ -1,0 +1,110 @@
+<html>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <main>
+        <div>
+            <img src="./images/back.svg" alt="Voltar">
+            <span id="span-back">Voltar sem salvar</span>
+        </div>
+        <section id="general-proof">
+            <form>
+                <label for="field-name">Nome</label>
+                <input type="text" id="field-name">
+                <label for="field-date">Data</label>
+                <input type="datetime" id="field-date">
+                <label for="field-type">Tipo</label>
+                <select id="field-type">
+                    <option value="certo_errado">Certo e Errado</option>
+                    <option value="multipla_escolha">Múltipla Escolha</option>
+                </select>
+                <label for="field-quantity">Quantidade</label>
+                <input type="number" id="field-quantity">
+                <label for="field-wrongs">Erradas</label>
+                <input type="number" id="field-wrongs">
+                <label for="field-corrects">Corretas</label>
+                <input type="number" id="field-corrects">
+                <label for="field-blank">Em branco</label>
+                <input type="number" id="field-blank">
+                <label for="field-performance">Desempenho</label>
+                <input type="text" id="field-performance" readonly>
+                <label for="field-positives">Positivadas</label>
+                <input type="text" id="field-positives" readonly>
+                <label for="field-percentage">Porcentagem</label>
+                <input type="text" id="field-percentage" readonly>
+            </form>
+        </section>
+        <section id="subjects">
+            <table>
+                <tr>
+                    <td></td>
+                    <th>0</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                </tr>
+                <tr>
+                    <th>0</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>1</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <div>
+                <p>Questões não atribuídas: </p>
+            <form id="assign-subjects">
+                <p>Nome da matéria</p>
+                <p>Questões</p>
+                <input type="text" class="assign-name">
+                <input type="text" class="assign-questions">
+                <input type="submit" id="assign-add-field" value="+">
+            </form>
+            </div>
+        </section>
+        <div>
+            <img src="./images/ok.svg" alt="Finalizar">
+        </div>
+    </main>
+</body>
+
+</html>
