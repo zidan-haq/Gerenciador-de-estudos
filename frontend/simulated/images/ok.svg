@@ -1,4 +1,7 @@
-<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M50 5.72929C50 2.56882 47.4312 0 44.2707 0H5.72929C2.56882 0 0 2.56882 0 5.72929V44.2707C0 47.4312 2.56882 50 5.72929 50H44.2707C47.4312 50 50 47.4312 50 44.2707V5.72929Z" fill="#4CAF50"/>
-<path d="M37.6708 16.7564C38.4853 17.5708 38.4853 18.8873 37.6708 19.7021L24.129 33.2435C23.7228 33.6498 23.1895 33.8542 22.6562 33.8542C22.1229 33.8542 21.5896 33.6498 21.1833 33.2435L14.4126 26.4728C13.5978 25.6584 13.5978 24.3415 14.4126 23.5271C15.2271 22.7123 16.5435 22.7123 17.3583 23.5271L22.6562 28.8249L34.7251 16.7564C35.5396 15.9416 36.856 15.9416 37.6708 16.7564Z" fill="#FAFAFA"/>
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <ellipse ry="10" rx="10" id="svg_1" cy="10" cx="10" stroke-width="0.1" stroke="#4caf50" fill="#4caf50"/>
+  <text xml:space="preserve" text-anchor="start" font-family="'Calistoga'" font-size="14" id="svg_2" y="14" x="3" stroke-width="0" stroke="#4caf50" fill="#ffffff">ok</text>
+ </g>
 </svg>

@@ -5,6 +5,7 @@
     --background-white: #e9e9e9;
     --blue-light: #c7e7ff;
     --gray-light: #a1a1a1;
+    --gray-lighter: #e5e5e5;
 }
 
 
@@ -26,6 +27,43 @@ header {
     justify-content: center;
     align-items: center;
     background-color: var(--blue-light);
+}
+
+
+/* general class styles */
+
+.disabled {
+    display: none;
+}
+
+
+.btn-container {
+    text-align: center;
+}
+
+.jump {
+    animation: 2s infinite jumping;
+}
+
+@keyframes jumping {
+    50% {transform: translateY(1rem);}
+}
+
+.grow {
+    animation: 1s infinite growing;
+}
+
+@keyframes growing {
+    25% {
+        width: 52px;
+    }
+    50% {
+        width: 55px;
+        box-shadow: 1px 1px 5px #aaaaaa;
+    }
+    75% {
+        width: 52px;
+    }
 }
 
 /* main */
@@ -100,8 +138,108 @@ footer a {
 
 /* register proof */
 
+#first-section-content {
+    display: grid;
+    row-gap: 1rem;
+}
 
-/* recursive */
+#span-back {
+    visibility: hidden;
+    background: #2f8bcf;
+    color: #ffffff;
+    box-shadow: 2px 2px 3px var(--blue-light);
+}
+
+#img-back:hover ~ #span-back {
+    visibility: visible;
+}
+
+#proof-form {
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: 1fr 5fr;
+}
+
+#proof-form input {
+    border: 1px solid var(--blue-light);
+    appearance: textfield;
+}
+
+#proof-form select {
+    background-color: transparent;
+    border: 1px solid var(--blue-light);
+}
+
+#proof-form input:focus {
+    outline: none;
+}
+
+#btn-save {
+    border-radius: 5px;
+}
+
+/* register proof section subjects */
+
+#subjects {
+    display: grid;
+    row-gap: 10px;
+    padding: 1%;
+}
+
+#subjects-index {
+    font-size: 8px;
+    margin: 0;
+    line-height: 0;
+}
+
+#questions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#questions-table td, #questions-table th {
+    font-weight: normal;
+    border: 1px solid var(--gray-light);
+}
+
+#questions-table select {
+    background-color: transparent;
+    border-color: transparent;
+    appearance: none;
+    font-size: 20px;
+}
+
+#questions-table select:focus {
+    outline: 2px solid blue;
+}
+
+#assign-container {
+    background-color: var(--gray-lighter);
+    padding: 0 5px;
+}
+
+#not-assigned {
+    font-size: 10px;
+    text-align: right;
+    line-height: 0px;
+    margin-bottom: 0;
+}
+
+#assign-subjects {
+    display: grid;
+    grid-template-columns: 4fr 14fr 1fr;
+    column-gap: 10px;
+}
+
+#assign-subjects input {
+    border: 1px solid var(--blue-light);
+}
+
+#assign-subjects input:focus {
+    outline: none;
+}
+
+/* responsive */
 
 @media screen and (max-width: 800px) {
     
@@ -110,7 +248,7 @@ footer a {
     }
 
     main section {
-        width: 100%;
+        width: 95vw;
         margin-left: 0;
         margin-right: 0;
     }

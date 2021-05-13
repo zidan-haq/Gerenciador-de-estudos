@@ -1,0 +1,7 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <ellipse ry="10" rx="10" id="svg_1" cy="10" cx="10" stroke-width="0.1" stroke="#ff3f3f" fill="#ff3f3f"/>
+  <text style="cursor: move;" xml:space="preserve" text-anchor="start" font-family="'Calistoga'" font-size="30" id="svg_2" y="17" x="5" stroke-width="0" stroke="#4caf50" fill="#ffffff">-</text>
+ </g>
+</svg>
