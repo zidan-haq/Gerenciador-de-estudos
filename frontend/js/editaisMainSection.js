@@ -1,5 +1,4 @@
 export function getMainSection(main) {
-
     return fetch("./editais main section.html")
         .then(response => response.text())
         .then(text => textToElement(text))
@@ -14,7 +13,6 @@ export function getMainSection(main) {
             alert("Houve um problema ao carregar os dados desse concurso.")
         }
     }
-
 }
 
 export function createLine(subjectData) {
