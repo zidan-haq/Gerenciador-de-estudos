@@ -23,9 +23,9 @@
                     <input type="date" id="field-date">
                     <label for="field-type">Tipo</label>
                     <select id="field-type">
-                        <option selected hidden>Selecione um tipo</option aria-required="false">
-                        <option value="certo_errado">Certo e Errado</option>
-                        <option value="multipla_escolha">Múltipla Escolha</option>
+                        <option selected hidden value="">Selecione um tipo</option>
+                        <option value="CERTO_E_ERRADO">Certo e Errado</option>
+                        <option value="MULTIPLA_ESCOLHA">Múltipla Escolha</option>
                     </select>
                     <label for="field-quantity">Quantidade</label>
                     <input type="number" id="field-quantity">
@@ -40,11 +40,11 @@
                     <label for="field-positives">Positivadas</label>
                     <input type="number" id="field-positives" readonly>
                     <label for="field-percentage">Porcentagem</label>
-                    <input type="number" id="field-percentage" readonly>
+                    <input type="text" id="field-percentage" readonly>
                 </form>
             </section>
             <div class="btn-container">
-                <img id="btn-next" class="jump" src="./images/next.svg" alt="Próximo">
+                <img id="btn-next" class="disabled jump" src="./images/next.svg" alt="Próximo">
             </div>
         </div>
         <section id="subjects" class="">

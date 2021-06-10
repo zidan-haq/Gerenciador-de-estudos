@@ -2,6 +2,7 @@ package com.haq.gerenciadordeestudos.entities.performance;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.List;
@@ -80,7 +81,7 @@ public class Proof implements Serializable {
 		BigDecimal points = new BigDecimal(getPoints());
 		BigDecimal hundred = new BigDecimal(100);
 		BigDecimal quantQuestions = new BigDecimal(getQuestions().size());
-		BigDecimal percentage = points.multiply(hundred).divide(quantQuestions);
+		BigDecimal percentage = points.multiply(hundred).divide(quantQuestions, MathContext.DECIMAL32);
 		percentage = percentage.setScale(2, RoundingMode.HALF_EVEN);
 		return percentage.doubleValue();
 	}

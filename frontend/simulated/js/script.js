@@ -1,5 +1,7 @@
 import { Backend } from '../../js/backendConnection.js';
 import { proofsTableRow, getRegisterProof } from "./htmlElements.js";
+import { initiate as initiateRP } from './registerProof.js';
+
 
 (function bootControl() {
     getAllProofs();
@@ -51,7 +53,8 @@ function populateListProof(list) {
 function changeMain() {
     const main = document.querySelector("main");
     if(main.querySelector("#options-content")) {
-        getRegisterProof(main) 
+        getRegisterProof(main)
+        .then(response => initiateRP());
     } else {
         location.reload;
     }

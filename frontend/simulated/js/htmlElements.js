@@ -47,6 +47,5 @@ export async function getRegisterProof(main) {
         main.replaceWith(html.querySelector("main"));
     } catch (err) {
         alert("Não foi possível pegar o campo de registro de prova.");
-        console.log(err);
     }
 }
