@@ -1,6 +1,6 @@
 import { Backend } from "../../js/backendConnection.js"
-import { newElement, appendChildren } from "./htmlElements.js";
-import { constraintInteger, constraintIntSequences} from "./constraints.js"
+import { newElement, appendChildren, createRow } from "./htmlElements.js";
+import { constraintInteger, constraintIntSequences } from "./constraints.js"
 
 export function initiate() {
     back();
@@ -47,7 +47,7 @@ function checkFields() {
     const boolean1 = list.filter(x => x.value !== "").length === list.length;
     const boolean2 = quantityError(form, type, quantity, wrongs, corrects, blank);
     const object = {
-        "type":type.value, 
+        "type": type.value,
         "wrongs": parseInt(wrongs.value),
         "corrects": parseInt(corrects.value),
         "blank": parseInt(blank.value)
@@ -63,7 +63,7 @@ function quantityError(form, type, quantity, wrongs, corrects, blank) {
     if (!quantity.value || !wrongs.value || !corrects.value || !blank.value) return false;
 
     let error = formError(form, type.parentElement, quantity, wrongs, corrects, blank);
-    
+
     try {
         const sum = parseInt(wrongs.value) + parseInt(corrects.value) + parseInt(blank.value);
         const quant = parseInt(quantity.value);
@@ -103,29 +103,17 @@ function calculate(form, object) {
     const performance = document.getElementById("field-performance");
     const positives = document.getElementById("field-positives");
     const percentage = document.getElementById("field-percentage");
-    
+
     return {
         compute() {
             postBackend(form, performance, positives, percentage, object)
         },
-        
+
         cleanFields() {
             performance.value = "";
             positives.value = "";
             percentage.value = "";
         }
-    }
-}
-
-function showBtnNext(boolean) {
-    const arrow = document.getElementById("btn-next");
-    const proofForm = document.getElementById("proof-form");
-
-    if(boolean) {
-        arrow.classList.remove("disabled")
-        arrow.onclick = proofForm.classList.add("disabled");
-    } else {
-        arrow.classList.add("disabled");
     }
 }
 
@@ -142,4 +130,95 @@ async function postBackend(form, performance, positives, percentage, object) {
         const error = formError(form);
         error.showFormError(`Houve um erro ao conectar com o servidor.\n${e}`);
     }
+}
+
+function showBtnNext(boolean) {
+    const arrow = document.getElementById("btn-next");
+    const subjectsContainer = document.getElementById("subjects-container");
+
+    if (boolean) {
+        arrow.classList.remove("disabled");
+        arrow.addEventListener("click", e => {
+            arrow.classList.contains("jump") ? arrow.classList.replace("jump", "rotate") : arrow.classList.replace("rotate", "jump");
+
+            if(subjectsContainer.classList.contains("disabled")) {
+                subjectsContainer.classList.remove("disabled");
+                fieldSubjects();
+                subjectsContainer.scrollIntoView();
+            } else {
+               resetTable();
+               subjectsContainer.classList.add("disabled");
+            }
+        });
+    } else {
+        arrow.classList.add("disabled");
+        subjectsContainer.classList.add("disabled");
+    }
+}
+
+function fieldSubjects() {
+    const fieldQuantity = document.getElementById("field-quantity");
+    const assignQuestions = document.querySelector(".assign-questions");
+
+    populateTable(fieldQuantity.value);
+    constraintIntSequences(assignQuestions);
+
+}
+
+function resetTable() {
+    const table = document.getElementById("questions-table");
+    table.lastChild.remove();
+}
+
+function populateTable(quantQuestion) {
+    const table = document.getElementById("questions-table");
+    quantQuestion++; // se acrescenta 1 por causa da célula 00 na tabela;
+    const lines = Math.ceil(quantQuestion / 10);
+    const lastColumns = quantQuestion % 10;
+    const tbody = document.createElement("tbody");
+
+    table.appendChild(tbody);
+
+    for (let x = 0; x < lines; x++) {
+        const row = (x + 1 === lines) ? createRow("subjectsTable", x, lastColumns) :
+                                        createRow("subjectsTable", x, 10);
+        tbody.appendChild(row);
+    }
+
+    tbody.addEventListener("change", e => {
+        compareQuantities(tbody);
+    });
+}
+
+function compareQuantities(tbody) {
+    const compareField = document.getElementById("compare-field");
+    const compareError = document.getElementById("compare-error")
+    const wrongs = document.getElementById("field-wrongs").value;
+    const corrects = document.getElementById("field-corrects").value;
+    const blank = document.getElementById("field-blank").value;
+    const selects = tbody.querySelectorAll("tr td select");
+    let quantE = 0;
+    let quantC = 0;
+    let quantB = 0;
+
+    selects.forEach(select => {
+        const value = select.options[select.selectedIndex].value;
+        if(value === "wrong") {
+            quantE++;
+        }
+        else if(value === "correct") {
+            quantC++;
+        }
+        else {
+            quantB++;
+        }
+    });
+    
+    compareField.innerText = 
+    `Erradas: ${quantE} de ${wrongs} / Corretas: ${quantC} de ${corrects} / Em branco: ${quantB} de ${blank}`;
+
+    (quantE != wrongs || quantC != corrects || quantB != blank) ?
+        compareError.innerText = "os valores informado não coincidem." :
+        compareError.innerText = "";
+
 }

@@ -3,5 +3,10 @@ export function constraintInteger(...input) {
 }
 
 export function constraintIntSequences(...input) {
-    input.forEach(x => x. addEventListener("keyup", e => x.value = x.value.replaceAll(/[^\d((; | : & \d)*)?]/g)));
+    input.forEach(x => x. addEventListener("keyup", e => {
+        x.value = x.value.replaceAll(/[^\d;:]/g, "");
+        x.value = x.value.replaceAll(/;{1,}/g, ";");
+        x.value = x.value.replaceAll(/:{1,}/g, ":");
+        x.value = x.value.replaceAll(/;:|:;/g, ";");
+    }));
 }

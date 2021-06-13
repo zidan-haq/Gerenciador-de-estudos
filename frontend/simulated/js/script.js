@@ -1,5 +1,5 @@
 import { Backend } from '../../js/backendConnection.js';
-import { proofsTableRow, getRegisterProof } from "./htmlElements.js";
+import { createRow, getRegisterProof } from "./htmlElements.js";
 import { initiate as initiateRP } from './registerProof.js';
 
 
@@ -48,6 +48,13 @@ function populateListProof(list) {
         const row = proofsTableRow(proof);
         proofsTable.appendChild(row);
     });
+}
+
+function proofsTableRow(proof) {
+    const type = proof.type.replaceAll("_", " ").toLowerCase();
+    const date = new Date(proof.date).toLocaleString();
+
+    return createRow("proofsTable", "td", proof.id, type, proof.name, date, proof.quantity, proof.result, proof.percentage);
 }
 
 function changeMain() {

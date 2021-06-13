@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,72 +48,42 @@
                 <img id="btn-next" class="disabled jump" src="./images/next.svg" alt="Próximo">
             </div>
         </div>
-        <section id="subjects" class="">
-            <p id="subjects-index">Utilize: C para corretas, E para erradas, B para não respondidas</p>
-            <table id="questions-table">
-                <tr>
-                    <td></td>
-                    <th>0</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                    <th>6</th>
-                    <th>7</th>
-                    <th>8</th>
-                    <th>9</th>
-                </tr>
-                <tr>
-                    <th>0</th>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                    <td><select id="1"><option value=" ">B</option><option value="correct">C</option><option value="wrong">E</option></select></td>
-                </tr>
-            </table>
-            <div id="assign-container">
-                <p id="not-assigned">Quantidade de questões não atribuídas: 0</p>
-                <form id="assign-subjects">
-                    <p>Nome da matéria</p>
-                    <p>Questões</p>
-                    <span></span>
-                    <input type="text" class="assign-name">
-                    <input type="text" class="assign-questions" placeholder="Use ; para separar as questões e : para formar sequências">
-                    <img src="./images/ok.svg" alt="Okay">
-                </form>
+        <section id="subjects-container" class="disabled">
+            <div id="subjects">
+                <p id="subjects-index">Utilize: C para corretas, E para erradas, B para não respondidas</p>
+                <table id="questions-table">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div>
+                    <p id="compare-field"></p>
+                    <p id="compare-error" style="color: red"></p>
+                </div>
+                <div id="assign-container">
+                    <p id="not-assigned">Quantidade de questões não atribuídas: 0</p>
+                    <form id="assign-subjects">
+                        <p>Nome da matéria</p>
+                        <p>Questões</p>
+                        <span></span>
+                        <input type="text" class="assign-name">
+                        <input type="text" class="assign-questions"
+                            placeholder="Use ; para separar as questões e : para formar sequências">
+                        <img src="./images/ok.svg" alt="Okay">
+                    </form>
+                </div>
             </div>
         </section>
         <div class="btn-container">
